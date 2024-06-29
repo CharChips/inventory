@@ -37,6 +37,12 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_fonts: ^6.2.1
   flutter_native_splash: ^2.4.0
+  liquid_swipe: ^3.1.0
+  smooth_page_indicator: ^1.1.0
+  get: ^4.6.5
+  simple_barcode_scanner: ^0.1.1
+  flutter_barcode_scanner: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -52,14 +58,15 @@ dev_dependencies:
 flutter_native_splash:
   color: "#f7f6f1"
   color_dark: "#272727"
-  image: assets/images/ISA-Header-(LogoOnly).png
-  branding: assets/images/ISA-Header-Logo.png
-  image_dark: assets/images/ISA-Header-LogoOnly(White).png
+  image: assets/images/isa-vesit-color-logo.png
+  # branding: assets/images/ISA-Header-Logo.png
+  # branding_mode: bottom
+  image_dark: assets/images/isa-vesit-white-logo.png
   
   android_12:
-    image: assets/images/ISA-Header-(LogoOnly).png
+    image: assets/images/isa-vesit-color-logo.png
     icon_background_color: "#f7f6f1"
-    image_dark: assets/images/ISA-Header-LogoOnly(White).png
+    image_dark: assets/images/isa-vesit-white-logo.png
     icon_background_color_dark: "#272727"
 
 
@@ -75,9 +82,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
