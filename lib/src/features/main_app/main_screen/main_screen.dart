@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inventory/src/common_widgets/app_bar.dart';
 import 'package:inventory/src/common_widgets/bottom_navigation_bar.dart';
+import 'package:inventory/src/common_widgets/side_drawer.dart';
 import 'package:inventory/src/features/main_app/add_component/add_component_bottom_pop_up.dart';
 import 'package:inventory/src/features/main_app/dashboard/dashboard_screen.dart';
 import 'package:inventory/src/features/main_app/menu_screen/menu_Screen.dart';
@@ -39,6 +40,7 @@ class _DashboardState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
+      drawer: CustomSideDrawer(),
       body: Center(
         child: MainScreen._screenOptions.elementAt(_selectedIndex),
       ),
