@@ -16,13 +16,14 @@ class LoginScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(20),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image(
                   image: const AssetImage(
                       "assets/images/isa-vesit-color-logo.png"),
-                  height: size.height * 0.3,
+                  height: size.height * 0.2,
                 ),
+                SizedBox(height: 15,),
                 Text("Welcome Back",
                     style: Theme.of(context).textTheme.headlineMedium),
                 const LoginForm(),

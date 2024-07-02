@@ -7,6 +7,7 @@ import 'package:inventory/src/constants/image_strings.dart';
 import 'package:inventory/src/constants/text_strings.dart';
 import 'package:inventory/src/features/authentication/controllers/on_board_controller.dart';
 import 'package:inventory/src/features/authentication/models/model_onboarding.dart';
+import 'package:inventory/src/features/authentication/screens/login/login_form_widget.dart';
 import 'package:inventory/src/features/authentication/screens/login/login_screen.dart';
 import 'package:inventory/src/features/authentication/screens/onboarding_screen/on_boarding_page_widget.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';

@@ -1,14 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:inventory/src/features/authentication/screens/scanner_screen/scanner_screen.dart';
+import 'package:inventory/src/features/authentication/screens/HomeScreen.dart';
+import 'package:inventory/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
   });
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+
+  final  supabase=Supabase.instance.client;
+
+  final TextEditingController emailcontroller=TextEditingController();
+  final TextEditingController passwordcontroller=TextEditingController();
+
+   Future<void> emailsignin()async{
+
+    final response=await supabase.auth.signInWithPassword(password: passwordcontroller.text,
+         email: emailcontroller.text
+    
+    );
+
+  
+
+    try {
+  if(response.user!=null)
+  
+  {
+      Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => Homescreen()));
+  }
+} on Exception catch (e) {
+  // TODO
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text("You are not an ISA Member!"))
+  );
+}
+   
+
+  }
+
+   
+
+  @override
   Widget build(BuildContext context) {
+
+   
+
     return Form(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -16,6 +61,7 @@ class LoginForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              controller: emailcontroller,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.person_outline_outlined),
                   labelText: "Email",
@@ -26,6 +72,7 @@ class LoginForm extends StatelessWidget {
               height: 10,
             ),
             TextFormField(
+              controller: passwordcontroller,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.fingerprint),
                   labelText: "Password",
@@ -91,17 +138,20 @@ class LoginForm extends StatelessWidget {
                   },
                   child: Text("Forgot Password")),
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ScannerScreen()));
-                  },
-                  child: Text("LOGIN")),
-            )
+
+              SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        icon: Icon(Icons.email),
+                        onPressed: () {
+                          emailsignin();
+                          emailcontroller.clear();
+                          passwordcontroller.clear();
+                        },
+                        label: const Text("Log-In with Email"),
+                      ),
+                    ),
+           
           ],
         ),
       ),

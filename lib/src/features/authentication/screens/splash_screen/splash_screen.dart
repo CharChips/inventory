@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory/src/constants/image_strings.dart';
 import 'package:inventory/src/constants/text_strings.dart';
 import 'package:inventory/src/features/authentication/screens/welcome/welcome.dart';
+import 'package:inventory/src/utils/theme/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   Text(
                     tAppName,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   Text(tAppTagline)
                 ],
