@@ -84,74 +84,68 @@ class _LoginFormState extends State<LoginForm> {
               alignment: Alignment.centerRight,
               child: TextButton(
                   onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Select One Option",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium,
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      padding: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Color.fromARGB(
-                                              110, 180, 170, 132)),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.mail_outline_rounded,
-                                            size: 40,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Email",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headlineMedium,
-                                              ),
-                                              Text("Verify using Email")
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ));
+                    LoginBottomSheet(context);
                   },
                   child: Text("Forgot Password")),
             ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    emailsignin();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Homescreen()));
+                  },
+                  child: Text("LOGIN")),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
-              SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton.icon(
-                        icon: Icon(Icons.email),
-                        onPressed: () {
-                          emailsignin();
-                          emailcontroller.clear();
-                          passwordcontroller.clear();
-                        },
-                        label: const Text("Log-In with Email"),
-                      ),
+  Future<dynamic> LoginBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Select One Option",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromARGB(110, 180, 170, 132)),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.mail_outline_rounded,
+                      size: 40,
                     ),
-           
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Email",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Text("Verify using Email")
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
