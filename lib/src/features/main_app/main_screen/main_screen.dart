@@ -40,6 +40,7 @@ class _DashboardState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
+      drawer: CustomSideDrawer(),
       body: Center(
         child: MainScreen._screenOptions.elementAt(_selectedIndex),
       ),

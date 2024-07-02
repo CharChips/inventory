@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:inventory/src/features/authentication/screens/HomeScreen.dart';
 import 'package:inventory/main.dart';
+import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -15,45 +16,29 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final supabase = Supabase.instance.client;
 
-  final  supabase=Supabase.instance.client;
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
 
-  final TextEditingController emailcontroller=TextEditingController();
-  final TextEditingController passwordcontroller=TextEditingController();
-
-   Future<void> emailsignin()async{
-
-    final response=await supabase.auth.signInWithPassword(password: passwordcontroller.text,
-         email: emailcontroller.text
-    
-    );
-
-  
+  Future<void> emailsignin() async {
+    final response = await supabase.auth.signInWithPassword(
+        password: passwordcontroller.text, email: emailcontroller.text);
 
     try {
-  if(response.user!=null)
-  
-  {
-      Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => Homescreen()));
+      if (response.user != null) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainScreen()));
+      }
+    } on Exception catch (e) {
+      // TODO
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("You are not an ISA Member!")));
+    }
   }
-} on Exception catch (e) {
-  // TODO
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(content: Text("You are not an ISA Member!"))
-  );
-}
-   
-
-  }
-
-   
 
   @override
   Widget build(BuildContext context) {
-
-   
-
     return Form(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -93,8 +78,8 @@ class _LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                   onPressed: () {
                     emailsignin();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Homescreen()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => Homescreen()));
                   },
                   child: Text("LOGIN")),
             )
