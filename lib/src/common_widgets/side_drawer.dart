@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/src/common_widgets/sidebar_screens/about_screen.dart';
+import 'package:inventory/src/common_widgets/sidebar_screens/fine_policy_screen.dart';
+import 'package:inventory/src/common_widgets/sidebar_screens/guidelines_screen.dart';
+// import 'package:inventory/src/constants/image_strings.dart';
 
 class CustomSideDrawer extends StatelessWidget {
   @override
@@ -10,44 +14,46 @@ class CustomSideDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(''),
               decoration: BoxDecoration(
                 color: Colors.lightBlue[100], // Adjust the header color here
               ),
+              child: const SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: Image(
+                      image: AssetImage(
+                          "assets/images/isa-vesit-color-logo.png"))),
             ),
             ListTile(
               title: Text('T&C'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => GuidelinesPdf()));
               },
             ),
             ListTile(
               title: Text('Fine Policy'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FinePolicyPdf()));
               },
             ),
             ListTile(
               title: Text('About'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const AboutPage()));
               },
             ),
-            ListTile(
-              title: Text('Bjapeifhapf'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Version 1.0.0',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ),
+            // const Padding(
+            //   padding: EdgeInsets.all(16.0),
+            //   child: Text(
+            //     'Version 1.0.0',
+            //     style: TextStyle(
+            //       fontStyle: FontStyle.italic,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

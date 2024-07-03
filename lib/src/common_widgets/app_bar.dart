@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.blueGrey[50], // Set the background color
+      backgroundColor: Color(0xffC5E3FF), // Set the background color
       elevation: 0, // Remove the shadow
       leading: IconButton(
         icon: Icon(Icons.menu, color: Colors.black87), // Hamburger menu icon
