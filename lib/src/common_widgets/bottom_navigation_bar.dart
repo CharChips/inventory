@@ -32,7 +32,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.description),
-          label: 'Documents',
+          label: 'Transaction',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.grid_view),
