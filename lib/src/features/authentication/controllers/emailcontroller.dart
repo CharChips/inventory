@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inventory/src/features/authentication/screens/HomeScreen.dart';
+import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
 
 class Emailcontroller extends GetxController{
 
