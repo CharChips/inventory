@@ -1,6 +1,8 @@
 // custom_app_bar.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inventory/src/features/main_app/profile_screen/profile_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   // final String title;
@@ -16,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: Icon(Icons.menu, color: Colors.black87), // Hamburger menu icon
         onPressed: () {
-          // Add your onPressed code here!
+          Scaffold.of(context).openDrawer();
         },
       ),
       title: Text(
@@ -26,15 +28,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.bold, // Adjust the font weight as needed
         ),
       ),
-      actions: const [
-        Padding(
+      actions: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            );
+          },
+          child: Padding(
             padding: EdgeInsets.all(18.0),
-            child: Icon(Icons.account_circle_sharp)
+            child: Icon(Icons.account_circle_sharp),
             // CircleAvatar(
             //   backgroundImage: NetworkImage(
             //       'https://example.com/image.jpg'), // Replace with your image URL
             // ),
-            ),
+          ),
+        )
       ],
     );
   }

@@ -3,7 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:inventory/src/features/authentication/screens/HomeScreen.dart';
+<<<<<<< HEAD
 
+=======
+import 'package:inventory/main.dart';
+import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
+>>>>>>> 252de195b0cc9ab7fa7682d1777319d0ec2a6a33
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -17,9 +22,12 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final supabase = Supabase.instance.client;
 
-  final  supabase=Supabase.instance.client;
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
 
+<<<<<<< HEAD
   final Emailcontroller emailGet=Get.put(Emailcontroller());
 
   final TextEditingController emailcontroller=TextEditingController();
@@ -51,12 +59,26 @@ class _LoginFormState extends State<LoginForm> {
    
 
   }
+=======
+  Future<void> emailsignin() async {
+    final response = await supabase.auth.signInWithPassword(
+        password: passwordcontroller.text, email: emailcontroller.text);
+
+    try {
+      if (response.user != null) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MainScreen()));
+      }
+    } on Exception catch (e) {
+      // TODO
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("You are not an ISA Member!")));
+    }
+  }
+>>>>>>> 252de195b0cc9ab7fa7682d1777319d0ec2a6a33
 
   @override
   Widget build(BuildContext context) {
-
-   
-
     return Form(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20),
@@ -143,6 +165,24 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   child: Text("Forgot Password")),
             ),
+<<<<<<< HEAD
+=======
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () {
+                    emailsignin();
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => Homescreen()));
+                  },
+                  child: Text("LOGIN")),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+>>>>>>> 252de195b0cc9ab7fa7682d1777319d0ec2a6a33
 
                SizedBox(
                         width: double.infinity,
