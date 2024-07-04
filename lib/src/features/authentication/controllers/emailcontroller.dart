@@ -6,8 +6,16 @@ class Emailcontroller extends GetxController{
 
  RxString emailget=''.obs;
  RxBool isValidating=false.obs;
+  RxString Namefrommail=''.obs;
+
 
 final List<String> emails=['adityamhatre2003@gmail.com','sahoocharchit@gmail.com'];
+
+  final Map<String, String> emailToName = {
+    'adityamhatre2003@gmail.com': 'Aditya Mhatre',
+    'sahoochrchit@gmail.com': 'Charchit Sahoo',
+  };
+
 
 void mailchecker(){
 

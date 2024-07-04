@@ -4,6 +4,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Newentry extends StatefulWidget {
   const Newentry({super.key});
@@ -15,10 +16,12 @@ class Newentry extends StatefulWidget {
 class _NewentryState extends State<Newentry> {
    final TextEditingController barcodecontroller = TextEditingController();
         final Componentcontroller componentcontroller=Get.put(Componentcontroller());
-    
+         final supabase=Supabase.instance.client;
+           final TextEditingController boxnocontroller= TextEditingController();
   @override
   Widget build(BuildContext context) {
       String _scanBarcode = 'Unknown';
+        String boxno='';
     return Column(
       children: [
         SizedBox(height: 40,),
@@ -146,7 +149,7 @@ class _NewentryState extends State<Newentry> {
                     ),
                     child: TextFormField(
                       
-                    
+                    controller: boxnocontroller,
                       maxLines: 6,
                       minLines: 1,
                       style: TextStyle(color: Colors.white),
@@ -165,7 +168,10 @@ class _NewentryState extends State<Newentry> {
 
               SizedBox(height: 40,),
         TextButton(
-              onPressed: (){},
+              onPressed: ()async{
+                 boxno=boxnocontroller.text;
+                  await supabase.from('componentregister').insert({'skuid':barcodecontroller.text,'name':componentcontroller.CompName.value,'boxno':boxno});
+              },
               child: Container(
                 width: 300,
                 decoration: BoxDecoration(
