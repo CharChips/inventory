@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/src/features/main_app/category_screen/category_screen.dart';
 
 class ClassContainer extends StatelessWidget {
   final String label;
@@ -9,7 +10,10 @@ class ClassContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => CategoryScreen(cat_name: '${label}')));
+      },
       child: Container(
         margin: EdgeInsets.all(10),
         padding: const EdgeInsets.all(20),
