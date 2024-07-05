@@ -12,68 +12,74 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-   
   final _supabase = Supabase.instance.client;
-  final  Emailcontroller emailGet=Get.put(Emailcontroller()); 
+  final Emailcontroller emailGet = Get.put(Emailcontroller());
 
+  void naamkaran() async {
+    final response = await _supabase
+        .from('admins')
+        .select()
+        .eq('emailid', emailGet.emailget.value);
+    final data = response.first;
+    emailGet.Namefrommail.value = data['name'];
+  }
 
-   void naamkaran()async{
-
-  final response=await _supabase.from('admins').select().eq('emailid', emailGet.emailget.value);
-   final data=response.first;
-   emailGet.Namefrommail.value=data['name'];
-}
-
- @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     naamkaran();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('My Profile')),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-        colors: [
-          Color.fromARGB(255, 118, 184, 238),
-          Color.fromARGB(255, 213, 245, 252),
-          Color.fromARGB(255, 242, 254, 255)
-        ],
-        begin: Alignment.bottomCenter,
-        end: Alignment.topCenter,
-      )),
+        // decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //   colors: [
+        //     Color.fromARGB(255, 118, 184, 238),
+        //     Color.fromARGB(255, 213, 245, 252),
+        //     Color.fromARGB(255, 242, 254, 255)
+        //   ],
+        //   begin: Alignment.bottomCenter,
+        //   end: Alignment.topCenter,
+        // )),
         child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              
-              width: 120,
-              height: 120,
-              margin: EdgeInsets.all(20),
-              child: Image(image: AssetImage("assets/images/dp.png")),
+              decoration: BoxDecoration(color: Color(0xffC5E3FF)),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage("assets/images/dp.png"),
+                    radius: 90,
+                  ),
+                  Obx(
+                    () => Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        child: Text(
+                          emailGet.Namefrommail.value,
+                          style: TextStyle(
+                              fontSize: 34,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          Obx(
-            ()=> Center(
-              child: Text(emailGet.Namefrommail.value,style: TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.w300,
-                color: Colors.black
-              ),),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: LogOUtWidget(),
             ),
-          ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: LogOUtWidget(),
-        ),
-        SizedBox(height: 400),
+            SizedBox(height: 400),
           ],
         ),
       ),

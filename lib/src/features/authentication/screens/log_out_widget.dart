@@ -21,21 +21,18 @@ class _LogOUtWidgetState extends State<LogOUtWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.red
-      ),
-      
+          borderRadius: BorderRadius.circular(16), color: Color(0xff8FC8EB)),
       child: TextButton(
           onPressed: () {
             emailsignout();
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => LoginScreen()));
           },
-          child: Text('Logout',style:GoogleFonts.lato(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          ))),
+          child: Text('Logout',
+              style: GoogleFonts.lato(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white))),
     );
   }
 }

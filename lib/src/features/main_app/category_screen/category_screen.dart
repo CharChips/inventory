@@ -12,31 +12,31 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Component List',
-          style: GoogleFonts.montserrat(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold, // Adjust the font weight as needed
-          ),
-        ),
-        backgroundColor: Color(0xffC5E3FF),
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     'Component List',
+      //     style: GoogleFonts.montserrat(
+      //       color: Colors.black87,
+      //       fontWeight: FontWeight.bold, // Adjust the font weight as needed
+      //     ),
+      //   ),
+      //   backgroundColor: Color(0xffC5E3FF),
+      // ),
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  '${cat_name}',
-                  style: GoogleFonts.lato(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20),
+              //   child: Text(
+              //     '${cat_name}',
+              //     style: GoogleFonts.lato(
+              //       color: Colors.black,
+              //       fontSize: 30,
+              //       fontWeight: FontWeight.bold,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
