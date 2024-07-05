@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:google_fonts/google_fonts.dart';
-=======
 import 'package:get/get.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
->>>>>>> aditya
 import 'package:inventory/src/features/authentication/screens/log_out_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -41,34 +37,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      appBar: AppBar(
-        backgroundColor: Color(0xffC5E3FF),
-        title: Text(
-          'Profile',
-          style: GoogleFonts.montserrat(
-            color: Colors.black87,
-            fontWeight: FontWeight.bold, // Adjust the font weight as needed
-          ),
-        ),
-      ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            color: Color(0xffC5E3FF),
-            child: const Padding(
-              padding: EdgeInsets.all(20.0),
-              child: CircleAvatar(
-                radius: 85,
-              ),
-            ),
-          ),
-          LogOUtWidget()
-        ],
-=======
       appBar: AppBar(title: const Text('My Profile')),
       body: Container(
         decoration: BoxDecoration(
@@ -108,7 +76,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SizedBox(height: 400),
           ],
         ),
->>>>>>> aditya
       ),
     );
   }

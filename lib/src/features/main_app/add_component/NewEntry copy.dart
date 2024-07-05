@@ -6,18 +6,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Newentry extends StatefulWidget {
-  const Newentry({super.key});
+class NewConsumableentry extends StatefulWidget {
+  const NewConsumableentry({super.key});
 
   @override
-  State<Newentry> createState() => _NewentryState();
+  State<NewConsumableentry> createState() => _NewConsumableentryState();
 }
 
-class _NewentryState extends State<Newentry> {
+class _NewConsumableentryState extends State<NewConsumableentry> {
    final TextEditingController barcodecontroller = TextEditingController();
         final Componentcontroller componentcontroller=Get.put(Componentcontroller());
          final supabase=Supabase.instance.client;
            final TextEditingController boxnocontroller= TextEditingController();
+           final TextEditingController stockcontroller= TextEditingController();
   @override
   Widget build(BuildContext context) {
       String _scanBarcode = 'Unknown';
@@ -82,29 +83,29 @@ class _NewentryState extends State<Newentry> {
               ),
             ),
 
-         Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: TextFormField(
+        //  Padding(
+        //       padding: const EdgeInsets.all(25.0),
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //           border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
+        //           borderRadius: BorderRadius.all(Radius.circular(8)),
+        //         ),
+        //         child: TextFormField(
                   
-                  controller: barcodecontroller,
-                  maxLines: 6,
-                  minLines: 1,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text(
-                      "SKU ID",
-                      style: GoogleFonts.lato(textStyle: TextStyle(color: const Color.fromARGB(255, 136, 136, 136))),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+        //           controller: barcodecontroller,
+        //           maxLines: 6,
+        //           minLines: 1,
+        //           style: TextStyle(color: Colors.white),
+        //           decoration: InputDecoration(
+        //             border: OutlineInputBorder(),
+        //             label: Text(
+        //               "SKU ID",
+        //               style: GoogleFonts.lato(textStyle: TextStyle(color: const Color.fromARGB(255, 136, 136, 136))),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Container(
@@ -163,6 +164,31 @@ class _NewentryState extends State<Newentry> {
                     ),
                   ),
                               ),
+
+                               Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Container(
+                    width: 120,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    child: TextFormField(
+                      
+                    controller: stockcontroller,
+                      maxLines: 6,
+                      minLines: 1,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        label: Text(
+                          "Stock",
+                          style: GoogleFonts.lato(textStyle: TextStyle(color: const Color.fromARGB(255, 129, 128, 128))),
+                        ),
+                      ),
+                    ),
+                  ),
+                              ),
                 ],
               ),
 
@@ -170,7 +196,8 @@ class _NewentryState extends State<Newentry> {
         TextButton(
               onPressed: ()async{
                  boxno=boxnocontroller.text;
-                  await supabase.from('componentregister').insert({'skuid':barcodecontroller.text,'name':componentcontroller.CompName.value,'boxno':boxno});
+                  await supabase.from(componentcontroller.ClassName.value).insert({'name':componentcontroller.CompName.value,'boxno':boxno,'stock':stockcontroller.text});
+                  Navigator.pop(context);
               },
               child: Container(
                 width: 300,

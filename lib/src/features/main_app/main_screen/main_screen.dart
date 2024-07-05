@@ -5,6 +5,7 @@ import 'package:inventory/src/common_widgets/bottom_navigation_bar.dart';
 import 'package:inventory/src/common_widgets/side_drawer.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:inventory/src/features/main_app/add_component/add_component_bottom_pop_up.dart';
+import 'package:inventory/src/features/main_app/add_component/cons_or%20noncons.dart';
 import 'package:inventory/src/features/main_app/dashboard/dashboard_screen.dart';
 import 'package:inventory/src/features/main_app/menu_screen/menu_Screen.dart';
 import 'package:inventory/src/features/main_app/search_screen/search_screen.dart';
@@ -34,7 +35,7 @@ class _DashboardState extends State<MainScreen> {
   void _onItemTapped(int index) {
     if (index == 2) {
       // Custom action for the middle "Add" button
-      AddCompBottomSheet(context);
+      ConsOrNonCons(context);
     } else {
       setState(() {
         _selectedIndex = index >= 2 ? index - 1 : index;

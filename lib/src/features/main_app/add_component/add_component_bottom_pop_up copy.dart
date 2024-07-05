@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
+import 'package:inventory/src/features/main_app/add_component/NewEntry%20copy.dart';
 import 'package:inventory/src/features/main_app/add_component/NewEntry.dart';
 import 'package:inventory/src/features/authentication/screens/scanner_screen/scanner_screen.dart';
 
-Future<dynamic> AddCompBottomSheet(BuildContext context) {
+Future<dynamic> AddConsumableSheet(BuildContext context) {
    final componentcontroller = Get.put(Componentcontroller(), permanent: true);
     componentcontroller.reset();
   return 
@@ -24,7 +25,7 @@ Future<dynamic> AddCompBottomSheet(BuildContext context) {
         Get.delete<Componentcontroller>();
         return true;
       },
-      child: Newentry(),
+      child: NewConsumableentry(),
     ),
         );
 }

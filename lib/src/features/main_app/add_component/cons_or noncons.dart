@@ -3,28 +3,29 @@ import 'package:get/get.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/main_app/add_component/NewEntry.dart';
 import 'package:inventory/src/features/authentication/screens/scanner_screen/scanner_screen.dart';
+import 'package:inventory/src/features/main_app/add_component/chooseOption.dart';
 
-Future<dynamic> AddCompBottomSheet(BuildContext context) {
-   final componentcontroller = Get.put(Componentcontroller(), permanent: true);
-    componentcontroller.reset();
+Future<dynamic> ConsOrNonCons(BuildContext context) {
+
   return 
-      
-
   showModalBottomSheet(
+        
+        shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(60), // Adjust the radius as needed
+      ),
+    ),
         sheetAnimationStyle: AnimationStyle(
             curve: Curves.bounceInOut, duration: Durations.long4),
         context: context,
         useSafeArea: true,
-        constraints: BoxConstraints.expand(),
+        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height*0.2,maxWidth: MediaQuery.of(context).size.width*0.8),
          isScrollControlled: true,
         elevation: 10,
-        backgroundColor: Color.fromARGB(255, 170, 211, 246),
-       builder: (BuildContext context) => WillPopScope(
-      onWillPop: () async {
-        Get.delete<Componentcontroller>();
-        return true;
-      },
-      child: Newentry(),
-    ),
+
+        backgroundColor: Color.fromARGB(255, 172, 209, 242),
+       builder: (BuildContext context) => 
+       Chooseoption(),
+    
         );
 }

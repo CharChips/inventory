@@ -6,6 +6,7 @@ class Classscreen extends StatefulWidget {
   const Classscreen({required this.title, super.key});
 
   final String title;
+  //final List<Map<String,String>> componentList;
 
   @override
   State<Classscreen> createState() => _ClassscreenState();
