@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory/src/data/model.dart';
 
-class Component {
-  final String name;
-  final String boxNo;
-  final int stock;
 
-  Component({required this.name, required this.boxNo, required this.stock});
-}
 
 class ComponentController extends GetxController {
   RxList<Component> components = <Component>[].obs;

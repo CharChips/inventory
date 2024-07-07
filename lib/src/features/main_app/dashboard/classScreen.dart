@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inventory/src/data/Actuators&Motors.dart';
+import 'package:inventory/src/data/Communication%20Modules.dart';
+import 'package:inventory/src/data/DisplaysandIndicators.dart';
+import 'package:inventory/src/data/TransistorsandDiodes.dart';
+import 'package:inventory/src/data/audiomodules.dart';
+import 'package:inventory/src/data/microControllerList.dart';
+import 'package:inventory/src/data/model.dart';
+import 'package:inventory/src/data/sensors.dart';
+import 'package:inventory/src/features/main_app/component_list_screen/component_list_screen.dart';
 
-class Component {
-  final String name;
-  final String boxNo;
-  final int stock;
-
-  Component({required this.name, required this.boxNo, required this.stock});
-}
 
 class ComponentController extends GetxController {
   RxList<Component> components = <Component>[].obs;
+  RxString title=''.obs;
 
   void addComponent(Component component) {
+
     components.add(component);
   }
 }
@@ -22,6 +26,8 @@ class Classscreen extends StatefulWidget {
   const Classscreen({required this.title, super.key});
 
   final String title;
+
+
   //final List<Map<String,String>> componentList;
 
   @override
@@ -30,24 +36,47 @@ class Classscreen extends StatefulWidget {
 
 class _ClassscreenState extends State<Classscreen> {
   final ComponentController controller = Get.put(ComponentController());
+  
 
   @override
   void initState() {
     super.initState();
     // Add some sample data for demonstration purposes
     controller.components.clear();
-    controller
-        .addComponent(Component(name: 'ARDUINO UNO', boxNo: 'MC-02', stock: 9));
-    controller.addComponent(
-        Component(name: 'Raspberry Pie 3b', boxNo: 'MC-01', stock: 8));
-    controller.addComponent(
-        Component(name: 'Raspberry Pie 4b', boxNo: 'MC-01', stock: 2));
-    controller.addComponent(
-        Component(name: 'Raspberry pie pico', boxNo: 'MC-01', stock: 3));
-    controller.addComponent(
-        Component(name: 'Arduino Nano', boxNo: 'MC-02', stock: 3));
-    controller.addComponent(Component(
-        name: 'esp32_dev kit_V1_green board', boxNo: 'MC-02', stock: 3));
+    List<Component> componentList=getComponentListbytitle(widget.title);
+     for (Component elem in componentList) {
+      controller.addComponent(elem);
+    }
+    
+  }
+
+  List<Component> getComponentListbytitle(String title){
+    switch(title){
+      case 'Microcontroller':
+      return Microcontrollers().components;
+
+      case 'Communication Modules':
+      return CommunicationModules().components;
+
+      case 'Sensors':
+      return Sensors().components;
+
+      case 'Displays & Indicators':
+      return Displaysandindicators().components;
+
+      case 'Transistors and Diodes':
+      return Transistorsanddiodes().components;
+
+      case 'Actuators and Motors':
+      return ActuatorsandMotors().components;
+
+      case 'Audio Modules':
+      return Audiomodules().components;
+
+      default:
+      return [];
+
+    }
   }
 
   @override

@@ -23,7 +23,7 @@ class Componentcontroller extends GetxController {
 
   void skuidanalyze(String elem) {
   if (RegExp(r'^MC').hasMatch(elem)) {
-  ClassName.value = 'microcontrollers';
+  ClassName.value = 'Microcontrollers and Dev Boards';
   if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
     CompName.value = 'ATMEGA32';
     Boxname.value = 'MC-01';
@@ -92,7 +92,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'CM-03';
   }
 } else if (RegExp(r'^SN').hasMatch(elem)) {
-  ClassName.value = 'sensors';
+  ClassName.value = 'Sensors';
   if (RegExp(r'SN-SHARP-IR').hasMatch(elem)) {
     CompName.value = 'Sharp I.R sensor';
     Boxname.value = 'SN-01';
@@ -173,7 +173,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'SN-01';
   }
 } else if (RegExp(r'^CM').hasMatch(elem)) {
-  ClassName.value = 'communication modules';
+  ClassName.value = 'Communication Modules';
   if (RegExp(r'CM-AUBTM-BT').hasMatch(elem)) {
     CompName.value = 'AUBTM 20 Bluetooth module';
     Boxname.value = 'CM-01';
@@ -239,7 +239,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'CM-01';
   }
 } else if (RegExp(r'^AC').hasMatch(elem)) {
-  ClassName.value = 'actuators';
+  ClassName.value = 'Actuators and Motors';
   if (RegExp(r'AC-SERVO-MTR').hasMatch(elem)) {
     CompName.value = 'Servo motors';
     Boxname.value = 'AC-01';
@@ -263,7 +263,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'AC-01';
   }
 } else if (RegExp(r'^DI').hasMatch(elem)) {
-  ClassName.value = 'displays';
+  ClassName.value = 'Displays and Indicators';
   if (RegExp(r'DI-SMALL-OLED').hasMatch(elem)) {
     CompName.value = 'Small O-LED';
     Boxname.value = 'DI-01';
@@ -305,7 +305,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'DI-01';
   }
 } else if (RegExp(r'^AM').hasMatch(elem)) {
-  ClassName.value = 'modules';
+  ClassName.value = 'Audio Modules';
   if (RegExp(r'AM-WT588D-16P').hasMatch(elem)) {
     CompName.value = 'WT588D-16PV1.1';
     Boxname.value = 'AM-01';
@@ -323,7 +323,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'AM-01';
   }
 } else if (RegExp(r'^TD').hasMatch(elem)) {
-  ClassName.value = 'active components';
+  ClassName.value = 'Transistors and Diodes';
   if (RegExp(r'TD-BC574').hasMatch(elem)) {
     CompName.value = 'BC 574 Transistor';
     Boxname.value = 'TD-01';
@@ -350,7 +350,7 @@ class Componentcontroller extends GetxController {
     Boxname.value = 'TD-01';
   }
 } else if (RegExp(r'^IC').hasMatch(elem)) {
-  ClassName.value = 'ICs';
+  ClassName.value = 'ICs and Semiconductors';
   if (RegExp(r'IC-LM324').hasMatch(elem)) {
     CompName.value = 'LM324N, LM324';
     Boxname.value = 'IC-01';
@@ -463,30 +463,36 @@ class Componentcontroller extends GetxController {
     CompName.value = 'IRF540';
     Boxname.value = 'IC-01';
   } else if (RegExp(r'IC-795').hasMatch(elem)) {
-    CompName.value = '555TIMERIC';
+    CompName.value = 'UA74C1';
     Boxname.value = 'IC-01';
   } else if (RegExp(r'IC-796').hasMatch(elem)) {
-    CompName.value = 'ST16C552CJ';
+    CompName.value = 'AD820N';
     Boxname.value = 'IC-01';
   } else if (RegExp(r'IC-797').hasMatch(elem)) {
-    CompName.value = '7805 IC';
+    CompName.value = 'MH741CNKD8437';
     Boxname.value = 'IC-01';
   } else if (RegExp(r'IC-798').hasMatch(elem)) {
-    CompName.value = 'IC-78L05A';
+    CompName.value = 'LM386N';
     Boxname.value = 'IC-01';
   } else if (RegExp(r'IC-799').hasMatch(elem)) {
-    CompName.value = 'IC-7805AC';
+    CompName.value = 'QP07CP';
     Boxname.value = 'IC-01';
+    
+  }
+  else if (RegExp(r'IC-800').hasMatch(elem)) {
+    CompName.value = 'AD1674KN';
+    Boxname.value = 'IC-01';
+    
   }
 } else if (RegExp(r'^PC').hasMatch(elem)) {
-  ClassName.value = 'passive components';
+  ClassName.value = 'Passive Components';
   if (RegExp(r'PC-POT-XXX').hasMatch(elem)) {
     CompName.value = 'Potentiometers';
     Boxname.value = 'PC-01';
   } else if (RegExp(r'PC-CAP-ELC-XXX').hasMatch(elem)) {
     CompName.value = 'Capacitor electrolytic';
     Boxname.value = 'PC-01';
-  } else if (RegExp(r'PC-CAP-CHR-XXX').hasMatch(elem)) {
+  } else if (RegExp(r'PC-CAP-CR-XXX').hasMatch(elem)) {
     CompName.value = 'Capacitor ceramic';
     Boxname.value = 'PC-01';
   } else if (RegExp(r'PC-CAP-PP-XXX').hasMatch(elem)) {
@@ -502,45 +508,106 @@ class Componentcontroller extends GetxController {
     CompName.value = 'LM317';
     Boxname.value = 'PC-01';
   }
-} else if (RegExp(r'^CN').hasMatch(elem)) {
-  ClassName.value = 'connectors';
-  if (RegExp(r'CN-SCKT-02P').hasMatch(elem)) {
-    CompName.value = 'sockets';
-    Boxname.value = 'CN-01';
-  } else if (RegExp(r'CN-PLG-02P').hasMatch(elem)) {
-    CompName.value = 'plugs';
-    Boxname.value = 'CN-01';
-  } else if (RegExp(r'CN-TER-BLK').hasMatch(elem)) {
-    CompName.value = 'terminal block';
-    Boxname.value = 'CN-01';
-  } else if (RegExp(r'CN-HEADER-XXX').hasMatch(elem)) {
-    CompName.value = 'header pins';
-    Boxname.value = 'CN-01';
-  } else if (RegExp(r'CN-DIP-XXX').hasMatch(elem)) {
-    CompName.value = 'DIP connectors';
-    Boxname.value = 'CN-01';
+
+
+
+
+
+} else if (RegExp(r'^CS').hasMatch(elem)) {
+  ClassName.value = 'Connectors and Switches';
+  if (RegExp(r'CS-LUGS').hasMatch(elem)) {
+    CompName.value = 'Lugs';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-28PIN-RD-DIP').hasMatch(elem)) {
+    CompName.value = '28 pin IC base';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-16PIN-RD-DIP').hasMatch(elem)) {
+    CompName.value = '16 pin IC base';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-18PIN-RD-DIP').hasMatch(elem)) {
+    CompName.value = '18 pin IC base';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-14PIN-RD-DIP').hasMatch(elem)) {
+    CompName.value = '14 pin IC base';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-DC-JACK').hasMatch(elem)) {
+    CompName.value = 'DC Jack';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-PUSH-BTN').hasMatch(elem)) {
+    CompName.value = 'Push buttons';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-LEVER-SW').hasMatch(elem)) {
+    CompName.value = 'Lever Switch';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-DPI-SW').hasMatch(elem)) {
+    CompName.value = 'DPI Switch';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-TACT-SW-3MM').hasMatch(elem)) {
+    CompName.value = 'Tact Switch (3mm)';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-NUM-KEYPAD').hasMatch(elem)) {
+    CompName.value = 'numeric keypads';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-SINGLE-BTN-KEYPAD').hasMatch(elem)) {
+    CompName.value = 'single button keypad';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-AUX-M2F-CONN').hasMatch(elem)) {
+    CompName.value = 'AUX MALE TO FEMALE CONNECTOR';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-CONN-WHT-BLK').hasMatch(elem)) {
+    CompName.value = 'Connector WHITE ND BLACK';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-WTB-CONV-').hasMatch(elem)) {
+    CompName.value = 'Wire to Board Converter (Large), (Small)';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-IC-HOLDER').hasMatch(elem)) {
+    CompName.value = 'IC HOLDER, FEMALE IC HOLDER';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-PIN-BASE').hasMatch(elem)) {
+    CompName.value = '16 pin base, 18 pin base';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'CS-4K79-PINS').hasMatch(elem)) {
+    CompName.value = '4K79 pins, 4K75 pins';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'Relay module').hasMatch(elem)) {
+    CompName.value = 'Relay module';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'nrf power adapter board').hasMatch(elem)) {
+    CompName.value = 'nrf power adapter board';
+    Boxname.value = 'CS-01';
+  } else if (RegExp(r'GPIO extension board').hasMatch(elem)) {
+    CompName.value = 'GPIO extension board';
+    Boxname.value = 'CS-01';
   }
-} else if (RegExp(r'^SWT').hasMatch(elem)) {
-  ClassName.value = 'switches';
-  if (RegExp(r'SWT-MICRO-XXX').hasMatch(elem)) {
-    CompName.value = 'Micro Switch';
-    Boxname.value = 'SWT-01';
-  } else if (RegExp(r'SWT-PBS-XXX').hasMatch(elem)) {
-    CompName.value = 'Push button';
-    Boxname.value = 'SWT-01';
-  } else if (RegExp(r'SWT-TSL-XXX').hasMatch(elem)) {
-    CompName.value = 'Toggle switch lockable';
-    Boxname.value = 'SWT-01';
-  } else if (RegExp(r'SWT-RKS-XXX').hasMatch(elem)) {
-    CompName.value = 'rocker switch';
-    Boxname.value = 'SWT-01';
-  } else if (RegExp(r'SWT-DIP-XXX').hasMatch(elem)) {
-    CompName.value = 'DIP switch';
-    Boxname.value = 'SWT-01';
+  
+} else if (RegExp(r'^PW').hasMatch(elem)) {
+  ClassName.value = 'Power Components';
+  if (RegExp(r'PW-VOLT-REG').hasMatch(elem)) {
+    CompName.value = 'Voltage regulator (LM7812C)';
+    Boxname.value = 'PW-01';
+  } else if (RegExp(r'PW-BRIDGE-1A').hasMatch(elem)) {
+    CompName.value = '1A Bridge Rectifier';
+    Boxname.value = 'PW-01';
+  } else if (RegExp(r'PW-PSW-DIP-K').hasMatch(elem)) {
+    CompName.value = 'Power Switch Dip k';
+    Boxname.value = 'PW-01';
+  } else if (RegExp(r'PW-HW221-VOLT-CONV').hasMatch(elem)) {
+    CompName.value = 'HW-221 Voltage Converter';
+    Boxname.value = 'PW-01';
+  } else if (RegExp(r'PW-SOLAR').hasMatch(elem)) {
+    CompName.value = 'Solar panel 5V, 6V, 10V';
+    Boxname.value = 'PW-01';
+  } else if (RegExp(r'PW-BAT12').hasMatch(elem)) {
+    CompName.value = 'battery 9v';
+    Boxname.value = 'PW-01';
   }
 }
 
+
+
+
 }
+
 
   
 
