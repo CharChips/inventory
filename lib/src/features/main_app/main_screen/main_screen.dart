@@ -30,7 +30,7 @@ class _DashboardState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final _supabase = Supabase.instance.client;
-  final  Emailcontroller emailGet=Get.put(Emailcontroller()); 
+  final Emailcontroller emailGet = Get.put(Emailcontroller());
 
   void _onItemTapped(int index) {
     if (index == 2) {
@@ -42,15 +42,15 @@ class _DashboardState extends State<MainScreen> {
       });
     }
   }
-    
-  
-   void naamkaran()async{
 
-  final response=await _supabase.from('admins').select().eq('emailid', emailGet.emailget.value);
-   final data=response.first;
-   emailGet.Namefrommail.value=data['name'];
-}
-
+  void naamkaran() async {
+    final response = await _supabase
+        .from('admins')
+        .select()
+        .eq('emailid', emailGet.emailget.value);
+    final data = response.first;
+    emailGet.Namefrommail.value = data['name'];
+  }
 
   @override
   Widget build(BuildContext context) {
