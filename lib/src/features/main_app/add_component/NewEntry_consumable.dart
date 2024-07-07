@@ -4,26 +4,26 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
-import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class Newentry extends StatefulWidget {
-  const Newentry({super.key});
+class NewConsumableentry extends StatefulWidget {
+  const NewConsumableentry({super.key});
 
   @override
-  State<Newentry> createState() => _NewentryState();
+  State<NewConsumableentry> createState() => _NewConsumableentryState();
 }
 
-class _NewentryState extends State<Newentry> {
+class _NewConsumableentryState extends State<NewConsumableentry> {
   final TextEditingController barcodecontroller = TextEditingController();
   final Componentcontroller componentcontroller =
       Get.put(Componentcontroller());
   final supabase = Supabase.instance.client;
   final TextEditingController boxnocontroller = TextEditingController();
+  final TextEditingController stockcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     String _scanBarcode = 'Unknown';
-    // String boxno = '';
+    String boxno = '';
     return Column(
       children: [
         SizedBox(
@@ -57,14 +57,16 @@ class _NewentryState extends State<Newentry> {
           },
           child: Container(
             width: 300,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color.fromARGB(255, 98, 193, 240),
-                  Color.fromARGB(255, 13, 56, 211),
-                ],
-              ),
+            decoration: const BoxDecoration(
+              color: Color(0xff19335A),
               borderRadius: BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
+                ),
+              ],
             ),
             padding: EdgeInsets.symmetric(vertical: 12),
             alignment: Alignment.center,
@@ -80,30 +82,30 @@ class _NewentryState extends State<Newentry> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-            ),
-            child: TextFormField(
-              controller: barcodecontroller,
-              maxLines: 6,
-              minLines: 1,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                label: Text(
-                  "SKU ID",
-                  style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                          color: const Color.fromARGB(255, 136, 136, 136))),
-                ),
-              ),
-            ),
-          ),
-        ),
+
+        //  Padding(
+        //       padding: const EdgeInsets.all(25.0),
+        //       child: Container(
+        //         decoration: BoxDecoration(
+        //           border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
+        //           borderRadius: BorderRadius.all(Radius.circular(8)),
+        //         ),
+        //         child: TextFormField(
+
+        //           controller: barcodecontroller,
+        //           maxLines: 6,
+        //           minLines: 1,
+        //           style: TextStyle(color: Colors.white),
+        //           decoration: InputDecoration(
+        //             border: OutlineInputBorder(),
+        //             label: Text(
+        //               "SKU ID",
+        //               style: GoogleFonts.lato(textStyle: TextStyle(color: const Color.fromARGB(255, 136, 136, 136))),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
         Padding(
           padding: const EdgeInsets.all(25.0),
           child: Container(
@@ -128,6 +130,7 @@ class _NewentryState extends State<Newentry> {
             ),
           ),
         ),
+
         Row(
           children: [
             Padding(
@@ -139,17 +142,42 @@ class _NewentryState extends State<Newentry> {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
-                  controller: componentcontroller.boxnocontroller,
+                  controller: boxnocontroller,
                   maxLines: 6,
                   minLines: 1,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     label: Text(
                       "Box No.",
                       style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                              color: const Color.fromARGB(255, 129, 128, 128))),
+                          textStyle:
+                              TextStyle(color: Color.fromARGB(255, 6, 6, 6))),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Container(
+                width: 120,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                child: TextFormField(
+                  controller: stockcontroller,
+                  maxLines: 6,
+                  minLines: 1,
+                  style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text(
+                      "Stock",
+                      style: GoogleFonts.lato(
+                          textStyle:
+                              TextStyle(color: Color.fromARGB(255, 6, 6, 6))),
                     ),
                   ),
                 ),
@@ -157,62 +185,48 @@ class _NewentryState extends State<Newentry> {
             ),
           ],
         ),
+
         SizedBox(
           height: 40,
         ),
         TextButton(
           onPressed: () async {
-            // boxno = boxnocontroller.text;
-            await supabase.from('componentregister').insert({
-              'skuid': barcodecontroller.text,
+            boxno = boxnocontroller.text;
+            await supabase.from(componentcontroller.ClassName.value).insert({
               'name': componentcontroller.CompName.value,
-              'boxno': componentcontroller.Boxname.value
+              'boxno': boxno,
+              'stock': stockcontroller.text
             });
+            Navigator.pop(context);
           },
           child: Container(
             width: 300,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color.fromARGB(255, 98, 193, 240),
-                  Color.fromARGB(255, 13, 56, 211),
-                ],
-              ),
-            )
-          )
-        ),
-              SizedBox(height: 40),
-        TextButton(
-              onPressed: ()async{
-                var boxno=boxnocontroller.text;
-                  await supabase.from(componentcontroller.ClassName.value).insert({'skuid':barcodecontroller.text,'name':componentcontroller.CompName.value,'boxno':boxno});
-                  Navigator.of(context).pop();
-              },
-              child: Container(
-                width: 300,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      const Color.fromARGB(255, 98, 193, 240),
-                      Color.fromARGB(255, 13, 56, 211),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+            decoration: const BoxDecoration(
+              color: Color(0xff19335A),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 12),
-                alignment: Alignment.center,
-                child: Text(
-                  'Add Component',
-                  style: GoogleFonts.lato(
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                    ),
-                  ),
+              ],
+            ),
+            padding: EdgeInsets.symmetric(vertical: 12),
+            alignment: Alignment.center,
+            child: Text(
+              'Add Component',
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18,
                 ),
               ),
             ),
-  ]);
+          ),
+        ),
+      ],
+    );
   }
 }

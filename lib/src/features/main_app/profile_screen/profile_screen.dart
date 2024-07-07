@@ -34,7 +34,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Profile')),
+      appBar: AppBar(
+          backgroundColor: Color(0xffC5E3FF), title: const Text('My Profile')),
       body: Container(
         // decoration: BoxDecoration(
         //     gradient: LinearGradient(
@@ -55,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/dp.png"),
+                    // backgroundImage: AssetImage("assets/images/dp.png"),
                     radius: 90,
                   ),
                   Obx(
