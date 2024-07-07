@@ -194,7 +194,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
             await supabase.from(componentcontroller.ClassName.value).insert({
               'skuid': barcodecontroller.text,
               'name': componentcontroller.CompName.value,
-              'boxno': componentcontroller.boxnocontroller.value
+              'boxno': componentcontroller.Boxname.value
             });
             Navigator.pop(context);
           },
