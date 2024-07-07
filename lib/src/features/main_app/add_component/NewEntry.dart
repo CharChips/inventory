@@ -139,7 +139,7 @@ class _NewentryState extends State<Newentry> {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
-                  controller: componentcontroller.boxnocontroller,
+                  controller: boxnocontroller,
                   maxLines: 6,
                   minLines: 1,
                   style: TextStyle(color: Colors.white),
@@ -162,11 +162,10 @@ class _NewentryState extends State<Newentry> {
         ),
         TextButton(
           onPressed: () async {
-            // boxno = boxnocontroller.text;
-            await supabase.from('componentregister').insert({
+            await supabase.from(componentcontroller.ClassName.value).insert({
               'skuid': barcodecontroller.text,
               'name': componentcontroller.CompName.value,
-              'boxno': componentcontroller.Boxname.value
+              'boxno': componentcontroller.boxnocontroller.value
             });
           },
           child: Container(
