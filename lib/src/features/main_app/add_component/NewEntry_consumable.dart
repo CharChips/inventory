@@ -191,11 +191,10 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
         ),
         TextButton(
           onPressed: () async {
-            boxno = boxnocontroller.text;
             await supabase.from(componentcontroller.ClassName.value).insert({
+              'skuid': barcodecontroller.text,
               'name': componentcontroller.CompName.value,
-              'boxno': boxno,
-              'stock': stockcontroller.text
+              'boxno': componentcontroller.boxnocontroller.value
             });
             Navigator.pop(context);
           },

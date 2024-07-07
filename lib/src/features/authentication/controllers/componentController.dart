@@ -23,7 +23,7 @@ class Componentcontroller extends GetxController {
 
   void skuidanalyze(String elem) {
   if (RegExp(r'^MC').hasMatch(elem)) {
-  ClassName.value = 'Microcontrollers and Dev Boards';
+  ClassName.value = 'Microcontroller';
   if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
     CompName.value = 'ATMEGA32';
     Boxname.value = 'MC-01';

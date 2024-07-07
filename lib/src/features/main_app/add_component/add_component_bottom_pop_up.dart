@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
-import 'package:inventory/src/features/main_app/add_component/NewEntry.dart';
+import 'package:inventory/src/features/main_app/add_component/NewEntry_nonConsumable.dart';
 import 'package:inventory/src/features/authentication/screens/scanner_screen/scanner_screen.dart';
 
 Future<dynamic> AddCompBottomSheet(BuildContext context) {
