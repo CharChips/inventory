@@ -15,8 +15,8 @@ class NewConsumableentry extends StatefulWidget {
 
 class _NewConsumableentryState extends State<NewConsumableentry> {
   final TextEditingController barcodecontroller = TextEditingController();
-  final Componentcontroller componentcontroller =
-      Get.put(Componentcontroller());
+  final ComponentController componentcontroller =
+      Get.put(ComponentController());
   final supabase = Supabase.instance.client;
   final TextEditingController boxnocontroller = TextEditingController();
   final TextEditingController stockcontroller = TextEditingController();
@@ -192,7 +192,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
         TextButton(
           onPressed: () async {
             await supabase.from(componentcontroller.ClassName.value).insert({
-              'skuid': barcodecontroller.text,
+              'stock': stockcontroller.text,
               'name': componentcontroller.CompName.value,
               'boxno': componentcontroller.Boxname.value
             });

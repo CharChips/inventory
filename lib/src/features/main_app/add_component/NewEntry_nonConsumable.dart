@@ -4,7 +4,6 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
-import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Newentry extends StatefulWidget {
@@ -16,8 +15,8 @@ class Newentry extends StatefulWidget {
 
 class _NewentryState extends State<Newentry> {
   final TextEditingController barcodecontroller = TextEditingController();
-  final Componentcontroller componentcontroller =
-      Get.put(Componentcontroller());
+  final ComponentController componentcontroller =
+      Get.put(ComponentController());
   final supabase = Supabase.instance.client;
   final TextEditingController boxnocontroller = TextEditingController();
   @override

@@ -25,21 +25,27 @@ class CustomSideDrawer extends StatelessWidget {
                           "assets/images/isa-vesit-color-logo.png"))),
             ),
             ListTile(
-              title: Text('T&C'),
+              title: Text('T&C',style: TextStyle(
+                color: Colors.black
+              ),),
               onTap: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => GuidelinesPdf()));
               },
             ),
             ListTile(
-              title: Text('Fine Policy'),
+              title: Text('Fine Policy',style: TextStyle(
+                color: Colors.black
+              ),),
               onTap: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => FinePolicyPdf()));
               },
             ),
             ListTile(
-              title: Text('About'),
+              title: Text('About',style: TextStyle(
+                color: Colors.black
+              ),),
               onTap: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const AboutPage()));

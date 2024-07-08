@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class Componentcontroller extends GetxController {
+class ComponentController extends GetxController {
   RxString Skuid = ''.obs;
   RxString CompName = ''.obs;
   RxString Boxname = ''.obs;
