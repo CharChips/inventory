@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/Actuators&Motors.dart';
 import 'package:inventory/src/data/Communication%20Modules.dart';
 import 'package:inventory/src/data/DisplaysandIndicators.dart';
@@ -10,7 +9,7 @@ import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
 
-class ComponentController extends GetxController {
+class Componentcontroller extends GetxController {
   RxList<Component> components = <Component>[].obs;
   RxList<Component> foundComponents = <Component>[].obs;
 
@@ -45,7 +44,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final ComponentController controller = Get.put(ComponentController());
+  final Componentcontroller controller = Get.put(Componentcontroller());
 
   @override
   void initState() {

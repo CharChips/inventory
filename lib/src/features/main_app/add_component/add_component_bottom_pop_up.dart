@@ -5,7 +5,7 @@ import 'package:inventory/src/features/authentication/screens/scanner_screen/sca
 import 'package:inventory/src/features/main_app/add_component/NewEntry_nonConsumable.dart';
 
 Future<dynamic> AddCompBottomSheet(BuildContext context) {
-  final componentcontroller = Get.put(Componentcontroller(), permanent: true);
+  final componentcontroller = Get.put(ComponentController(), permanent: true);
   componentcontroller.reset();
   return showModalBottomSheet(
     sheetAnimationStyle:
@@ -18,7 +18,7 @@ Future<dynamic> AddCompBottomSheet(BuildContext context) {
     backgroundColor: Color(0xffC5E3FF),
     builder: (BuildContext context) => WillPopScope(
       onWillPop: () async {
-        Get.delete<Componentcontroller>();
+        Get.delete<ComponentController>();
         return true;
       },
       child: Newentry(),
