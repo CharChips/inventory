@@ -21,7 +21,7 @@ class ComponentController extends GetxController {
   }
 
   void addComponent(Component component) {
-    components.add(component);
+   // components.add(component);
     foundComponents.add(component);
   }
 
