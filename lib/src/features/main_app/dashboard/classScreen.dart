@@ -10,14 +10,13 @@ import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
 import 'package:inventory/src/features/main_app/component_list_screen/component_list_screen.dart';
-
+import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
 
 class ComponentController extends GetxController {
   RxList<Component> components = <Component>[].obs;
-  RxString title=''.obs;
+  RxString title = ''.obs;
 
   void addComponent(Component component) {
-
     components.add(component);
   }
 }
@@ -27,7 +26,6 @@ class Classscreen extends StatefulWidget {
 
   final String title;
 
-
   //final List<Map<String,String>> componentList;
 
   @override
@@ -36,46 +34,43 @@ class Classscreen extends StatefulWidget {
 
 class _ClassscreenState extends State<Classscreen> {
   final ComponentController controller = Get.put(ComponentController());
-  
 
   @override
   void initState() {
     super.initState();
     // Add some sample data for demonstration purposes
     controller.components.clear();
-    List<Component> componentList=getComponentListbytitle(widget.title);
-     for (Component elem in componentList) {
+    List<Component> componentList = getComponentListbytitle(widget.title);
+    for (Component elem in componentList) {
       controller.addComponent(elem);
     }
-    
   }
 
-  List<Component> getComponentListbytitle(String title){
-    switch(title){
+  List<Component> getComponentListbytitle(String title) {
+    switch (title) {
       case 'Microcontroller':
-      return Microcontrollers().components;
+        return Microcontrollers().components;
 
       case 'Communication Modules':
-      return CommunicationModules().components;
+        return CommunicationModules().components;
 
       case 'Sensors':
-      return Sensors().components;
+        return Sensors().components;
 
       case 'Displays & Indicators':
-      return Displaysandindicators().components;
+        return Displaysandindicators().components;
 
       case 'Transistors and Diodes':
-      return Transistorsanddiodes().components;
+        return Transistorsanddiodes().components;
 
       case 'Actuators and Motors':
-      return ActuatorsandMotors().components;
+        return ActuatorsandMotors().components;
 
       case 'Audio Modules':
-      return Audiomodules().components;
+        return Audiomodules().components;
 
       default:
-      return [];
-
+        return [];
     }
   }
 
@@ -110,13 +105,16 @@ class _ClassscreenState extends State<Classscreen> {
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ListTile(
-                    title: Text(
-                      component.name,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                        'Box No: ${component.boxNo}\nStock: ${component.stock}'),
-                  ),
+                      title: Text(
+                        component.name,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                          'Box No: ${component.boxNo}\nStock: ${component.stock}'),
+                      onTap: () {
+                        Get.to(
+                            () => ComponentInClassScreen(component: component));
+                      }),
                 );
               },
             ),

@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'Flutter Demo',
         theme: CAppTheme.lightTheme,
         darkTheme: CAppTheme.darkTheme,
         themeMode: ThemeMode.system,
