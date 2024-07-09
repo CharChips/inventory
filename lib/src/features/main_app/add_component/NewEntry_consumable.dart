@@ -142,7 +142,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
-                  controller: boxnocontroller,
+                  controller: componentcontroller.boxnocontroller,
                   maxLines: 6,
                   minLines: 1,
                   style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0)),
