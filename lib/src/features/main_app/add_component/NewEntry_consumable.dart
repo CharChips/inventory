@@ -192,6 +192,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
         TextButton(
           onPressed: () async {
             await supabase.from(componentcontroller.ClassName.value).insert({
+              'skuid':barcodecontroller.text,
               'stock': stockcontroller.text,
               'name': componentcontroller.CompName.value,
               'boxno': componentcontroller.Boxname.value
