@@ -175,11 +175,15 @@ class _NewentryState extends State<Newentry> {
       SizedBox(height: 40),
       TextButton(
         onPressed: () async {
+            print(barcodecontroller.text);
+          print(componentcontroller.CompName.value);
+          print(componentcontroller.boxnocontroller.value);
           await supabase.from(componentcontroller.ClassName.value).insert({
             'skuid': barcodecontroller.text,
             'name': componentcontroller.CompName.value,
             'boxno': componentcontroller.Boxname.value
           });
+        
           Navigator.of(context).pop();
         },
         child: Container(
