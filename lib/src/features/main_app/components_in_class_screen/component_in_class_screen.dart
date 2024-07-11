@@ -11,6 +11,7 @@ class ComponentInClassScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(component.name),
+        backgroundColor: Color(0xffC5E3FF),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

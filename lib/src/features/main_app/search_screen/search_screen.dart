@@ -20,7 +20,7 @@ class Componentcontroller extends GetxController {
   }
 
   void addComponent(Component component) {
-   // components.add(component);
+    // components.add(component);
     foundComponents.add(component);
   }
 
@@ -99,6 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Expanded(
                 child: Obx(
                   () => ListView.builder(
+                    cacheExtent: 400,
                     itemCount: controller.foundComponents.length,
                     itemBuilder: (context, index) {
                       final component = controller.foundComponents[index];

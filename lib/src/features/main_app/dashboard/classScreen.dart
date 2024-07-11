@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/Actuators&Motors.dart';
 import 'package:inventory/src/data/Communication%20Modules.dart';
 import 'package:inventory/src/data/DisplaysandIndicators.dart';
@@ -9,7 +9,7 @@ import 'package:inventory/src/data/audiomodules.dart';
 import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
-import 'package:inventory/src/features/main_app/component_list_screen/component_list_screen.dart';
+// import 'package:inventory/src/features/main_app/component_list_screen/component_list_screen.dart';
 import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
 
 class ComponentController extends GetxController {
