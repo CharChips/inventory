@@ -65,7 +65,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 14),
+            const SizedBox(height: 14),
             Padding(
               padding: const EdgeInsets.only(left: 30),
               child: Container(
@@ -83,7 +83,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                           horizontal: BorderSide(color: Colors.black),
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           SizedBox(width: 25),
                           Text(

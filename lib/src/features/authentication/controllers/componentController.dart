@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/data/model.dart';
 
 class ComponentController extends GetxController {
@@ -7,10 +9,13 @@ class ComponentController extends GetxController {
   RxString CompName = ''.obs;
   RxString Boxname = ''.obs;
   RxString ClassName = ''.obs;
+  RxInt Quantity=1.obs;
+  RxList<Cartcomponent> Cartcomponents = <Cartcomponent>[].obs;
+
 
   TextEditingController namecontroller = TextEditingController();
   TextEditingController boxnocontroller = TextEditingController();
-   RxList<Component> Classcomponents = <Component>[].obs;
+  RxList<Component> Classcomponents = <Component>[].obs;
   RxString title = ''.obs;
 
   
@@ -627,4 +632,10 @@ class ComponentController extends GetxController {
     namecontroller.clear();
     boxnocontroller.clear();
   }
+
+  // void QuantityAnalyzer(){
+
+    
+
+  // }
 }
