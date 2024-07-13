@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
+import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:inventory/src/features/main_app/thankyou.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -23,6 +24,9 @@ class _CartscreenState extends State<Cartscreen> {
 
   final ComponentController componentcontroller =
       Get.put(ComponentController());
+      
+  final Emailcontroller emailcontroller =
+      Get.put(Emailcontroller());
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -48,10 +52,12 @@ class _CartscreenState extends State<Cartscreen> {
       'name': name,
       'class': Class,
       'phonenumber': phonenumber,
-      'package': cartcomponentsJson
+      'package': cartcomponentsJson,
+      'issuedby':emailcontroller.Namefrommail.value
     };
 
     final response = await supabase.from('Transactions').insert(data);
+    print(data);
 
   }
 
