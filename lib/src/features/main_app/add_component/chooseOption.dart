@@ -44,24 +44,29 @@ class Chooseoption extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/icons/motherboard.png',
-                        width: 35,
-                        height: 35,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Add Non consumable component',
-                        style: GoogleFonts.lato(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 10
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/motherboard.png',
+                          width: 35,
+                          height: 35,
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 10),
+                        Text(
+                          'Add Non-Consumable component',
+                          style: GoogleFonts.lato(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -97,10 +102,10 @@ class Chooseoption extends StatelessWidget {
                       ),
                       SizedBox(width: 10),
                       Text(
-                        'Add consumable component',
+                        'Add Consumable component',
                         style: GoogleFonts.lato(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

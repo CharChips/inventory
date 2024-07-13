@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:inventory/src/data/model.dart';
 
 class ComponentController extends GetxController {
   RxString Skuid = ''.obs;
@@ -9,6 +10,10 @@ class ComponentController extends GetxController {
 
   TextEditingController namecontroller = TextEditingController();
   TextEditingController boxnocontroller = TextEditingController();
+   RxList<Component> Classcomponents = <Component>[].obs;
+  RxString title = ''.obs;
+
+  
 
   @override
   void onInit() {
@@ -19,6 +24,10 @@ class ComponentController extends GetxController {
     ever(Boxname, (_) {
       boxnocontroller.text = Boxname.value;
     });
+  }
+
+  void addComponent(Component component) {
+    Classcomponents.add(component);
   }
 
   void skuidanalyze(String elem) {

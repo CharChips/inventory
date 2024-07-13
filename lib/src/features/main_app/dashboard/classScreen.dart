@@ -9,17 +9,9 @@ import 'package:inventory/src/data/audiomodules.dart';
 import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
-// import 'package:inventory/src/features/main_app/component_list_screen/component_list_screen.dart';
 import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
-
-class ComponentController extends GetxController {
-  RxList<Component> components = <Component>[].obs;
-  RxString title = ''.obs;
-
-  void addComponent(Component component) {
-    components.add(component);
-  }
-}
+import 'package:inventory/src/features/main_app/search_screen/search_screen.dart';
+import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 
 class Classscreen extends StatefulWidget {
   const Classscreen({required this.title, super.key});
@@ -34,12 +26,11 @@ class Classscreen extends StatefulWidget {
 
 class _ClassscreenState extends State<Classscreen> {
   final ComponentController controller = Get.put(ComponentController());
-
   @override
   void initState() {
     super.initState();
     // Add some sample data for demonstration purposes
-    controller.components.clear();
+    controller.Classcomponents.clear();
     List<Component> componentList = getComponentListbytitle(widget.title);
     for (Component elem in componentList) {
       controller.addComponent(elem);
@@ -99,9 +90,9 @@ class _ClassscreenState extends State<Classscreen> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Obx(
             () => ListView.builder(
-              itemCount: controller.components.length,
+              itemCount: controller.Classcomponents.length,
               itemBuilder: (context, index) {
-                final component = controller.components[index];
+                final component = controller.Classcomponents[index];
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ListTile(
