@@ -42,6 +42,25 @@ class _CartscreenState extends State<Cartscreen> {
         .update({'stock': finalstock}).eq('skuid', component.skuid);
   }
 
+  
+  Future<void> returnQuantity(Cartcomponent component) async {
+    componentcontroller.skuidanalyze(component.skuid);
+    final tablestock = await supabase
+        .from(componentcontroller.ClassName.value)
+        .select('stock')
+        .eq('skuid', component.skuid);
+    final stockvalue = tablestock [0]['stock']as int;
+    final finalstock = stockvalue + component.Quantity;
+
+    await supabase
+        .from(componentcontroller.ClassName.value)
+        .update({'stock': finalstock}).eq('skuid', component.skuid);
+
+     await supabase
+        .from('Transactions')
+        .update({'status': 'Returned'}).eq('memberid',Memberid.text);    
+  }
+
   Future<void> insertCartComponents(String memberid, String name, String Class,
       String phonenumber, List<Cartcomponent> cartcomponents) async {
     List<Map<String, dynamic>> cartcomponentsJson =
@@ -53,7 +72,8 @@ class _CartscreenState extends State<Cartscreen> {
       'class': Class,
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
-      'issuedby':emailcontroller.Namefrommail.value
+      'issuedby':emailcontroller.Namefrommail.value,
+      'status':'Issued'
     };
 
     final response = await supabase.from('Transactions').insert(data);
@@ -345,6 +365,8 @@ class _CartscreenState extends State<Cartscreen> {
                     ),
                     TextButton(
                       onPressed: () async {
+                        if(componentcontroller.returnorissue.value==false)
+                        {
                         await insertCartComponents(
                             Memberid.text,
                             Name.text,
@@ -353,7 +375,20 @@ class _CartscreenState extends State<Cartscreen> {
                             componentcontroller.Cartcomponents);
 
                         for (var item in componentcontroller.Cartcomponents) {
-                          await updateQuantity(item);
+                          
+                            await updateQuantity(item);
+                          
+                        }
+                        
+                        }
+                        else{
+
+                           for (var item in componentcontroller.Cartcomponents) {
+                          
+                            await returnQuantity(item);
+                          
+                        }
+
                         }
                         Navigator.push(
                             context,

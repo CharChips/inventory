@@ -45,6 +45,10 @@ class _TransactionScreenState extends State<TransactionScreen> {
             children: [
               TextButton(
                 onPressed: () async {
+                  componentcontroller.Status.value='Issued';
+                  componentcontroller.returnorissue.value=false;
+
+
                   String barcodeScanRes;
                   // Platform messages may fail, so we use a try/catch PlatformException.
                   try {
@@ -79,7 +83,59 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: EdgeInsets.symmetric(vertical: 12),
                   alignment: Alignment.center,
                   child: Text(
-                    'Scan to add Component',
+                    'Scan to issue component',
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+               TextButton(
+                onPressed: () async {
+                  componentcontroller.Status.value='Returned';
+                  componentcontroller.returnorissue.value=true;
+                  String barcodeScanRes;
+                  // Platform messages may fail, so we use a try/catch PlatformException.
+                  try {
+                    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+                        '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+                    print(barcodeScanRes);
+                  } on PlatformException {
+                    barcodeScanRes = 'Failed to get platform version.';
+                  }
+
+                  // If the widget was removed from the tree while the asynchronous platform
+                  // message was in flight, we want to discard the reply rather than calling
+                  // setState to update our non-existent appearance.
+                  if (!mounted) return;
+
+                  setState(() {
+                    _scanBarcode = barcodeScanRes;
+                    barcode = _scanBarcode;
+                    componentcontroller.skuidanalyze(barcode);
+                    componentcontroller.Cartcomponents.add(Cartcomponent(
+                        compname: componentcontroller.CompName.value,
+                        skuid: barcode,
+                        Quantity: componentcontroller.Quantity.value));
+                  });
+                },
+                child: Container(
+                  width: 300,
+                  decoration: const BoxDecoration(
+                    color: Color(0xff19335A),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Scan to return component',
                     style: GoogleFonts.lato(
                       textStyle: TextStyle(
                         color: Colors.white,
