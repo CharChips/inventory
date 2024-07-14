@@ -15,7 +15,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  static const List<Widget> _screenOptions = <Widget>[
+  static  List<Widget> _screenOptions = <Widget>[
     Dashboard(),
     SearchScreen(),
     TransactionScreen(),
