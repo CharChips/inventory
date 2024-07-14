@@ -42,6 +42,19 @@ class _CartscreenState extends State<Cartscreen> {
         .update({'stock': finalstock}).eq('skuid', component.skuid);
   }
 
+  String Dateformatter(){
+
+  final taarikh=DateTime.now();
+  int month=taarikh.month;
+  int day=taarikh.day;
+  int year=taarikh.year;
+
+  String aslitaarikh='${day}/${month}/${year}';
+
+  return aslitaarikh;
+
+  }
+
   
   Future<void> returnQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -58,7 +71,11 @@ class _CartscreenState extends State<Cartscreen> {
 
      await supabase
         .from('Transactions')
-        .update({'status': 'Returned'}).eq('memberid',Memberid.text);    
+        .update({'status': 'Returned'}).eq('memberid',Memberid.text);  
+
+     await supabase
+        .from('Transactions')
+        .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);      
   }
 
   Future<void> insertCartComponents(String memberid, String name, String Class,
@@ -73,7 +90,8 @@ class _CartscreenState extends State<Cartscreen> {
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
       'issuedby':emailcontroller.Namefrommail.value,
-      'status':'Issued'
+      'status':'Issued',
+      'issuedate':Dateformatter()
     };
 
     final response = await supabase.from('Transactions').insert(data);

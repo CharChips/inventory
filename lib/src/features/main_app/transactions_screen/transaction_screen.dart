@@ -151,7 +151,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                    shrinkWrap: true, // Add this
+shrinkWrap: true, // Add this                    
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: componentcontroller.Cartcomponents.length,
                     itemBuilder: (ctx, index) {
