@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:inventory/src/features/main_app/main_screen/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -52,13 +50,10 @@ class _LoginFormState extends State<LoginForm> {
 void initState() {
   super.initState();
 
-  // Retrieve the current authentication session
   supabase.auth.refreshSession().then((session) {
     if (session != null) {
-      // If the session is valid, authenticate the user
       emailGet.emailget.value = session.user!.email!;
       emailGet.mailchecker();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MainScreen()));
     }
   });
 }

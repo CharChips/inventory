@@ -48,6 +48,7 @@ dependencies:
   flutter_riverpod: ^2.5.1
   flutter_pdfview: ^1.3.2
   shared_preferences: ^2.2.3
+  flutter_launcher_icons: ^0.13.1
   # syncfusion_flutter_pdfviewer: ^26.1.40
 
 
@@ -61,6 +62,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  
 
 flutter_native_splash:
   color: "#f7f6f1"
