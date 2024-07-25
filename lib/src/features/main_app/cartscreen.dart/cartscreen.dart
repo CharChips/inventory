@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart'as http;
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
@@ -28,6 +33,8 @@ class _CartscreenState extends State<Cartscreen> {
   final Emailcontroller emailcontroller =
       Get.put(Emailcontroller());
 
+      
+
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
     final tablestock = await supabase
@@ -41,6 +48,28 @@ class _CartscreenState extends State<Cartscreen> {
         .from(componentcontroller.ClassName.value)
         .update({'stock': finalstock}).eq('skuid', component.skuid);
   }
+
+  void scheduleNotification(DateTime scheduledDate) async {
+  final response = await http.post(
+    Uri.parse('https://onesignal.com/api/v1/notifications'),
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Authorization": "Basic ZjI3ZTcwZjEtNTU5Zi00NTYwLWJlMDEtNTUzYmE0ZWQ0MmIy"
+    },
+    body: jsonEncode({
+      "app_id": "329b0b98-b961-4613-ae74-94e4c17dd44f",
+      "included_segments": ["All"], // You can target specific segments or use player IDs
+      "contents": {"en": "Reminder: Please return the item you borrowed."},
+      "send_after": scheduledDate.toIso8601String() // Scheduled date
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    print("Notification scheduled successfully!");
+  } else {
+    print("Failed to schedule notification: ${response.body}");
+  }
+}
 
   String Dateformatter(){
 
@@ -98,6 +127,9 @@ class _CartscreenState extends State<Cartscreen> {
     print(data);
 
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -408,6 +440,11 @@ class _CartscreenState extends State<Cartscreen> {
                         }
 
                         }
+                           DateTime issueDate = DateTime.now(); // Example issue date
+DateTime scheduledDate = issueDate.add(const Duration(minutes: 1));
+
+String scheduledDateString = DateFormat('yyyy-MM-dd HH:mm:ss').format(scheduledDate);
+                                                scheduleNotification(scheduledDate);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

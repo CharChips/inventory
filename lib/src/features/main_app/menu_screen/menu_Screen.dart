@@ -82,66 +82,68 @@ void fetchpackage()async{
             ),
           ),
           
-      child: ListView.builder(
-        shrinkWrap: true, // Add this                    
-                      physics: NeverScrollableScrollPhysics(),
-        itemCount: fetchedlist.length,
-        itemBuilder: (ctx,index){
-      
-          final fetcedcomp=fetchedlist[index];
-          final List<String> itemNames=fetcedcomp.packageitems.map<String>(((item)=>item['compname'].toString())).toList();
-        print(itemNames);
-          
-         final item1=itemNames[0];
-         final item2=itemNames.length>1?itemNames[1]:'';
-
-         
-          return 
-                  Padding(
-       padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),                  child: Container(
-                       width: MediaQuery.of(context).size.width * 0.8,
-                            height: 160,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(39, 5, 168, 244),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16),
-                                )),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10, left: 10),
-                                      child: Text(
-                                       '${item1},${item2}...',
-                                        style: GoogleFonts.lato(
-                                            color: Colors.black, fontSize: 20),
+      child: SingleChildScrollView(
+        child: ListView.builder(
+          shrinkWrap: true, // Add this                    
+                        physics: NeverScrollableScrollPhysics(),
+          itemCount: fetchedlist.length,
+          itemBuilder: (ctx,index){
+        
+            final fetcedcomp=fetchedlist[index];
+            final List<String> itemNames=fetcedcomp.packageitems.map<String>(((item)=>item['compname'].toString())).toList();
+          print(itemNames);
+            
+           final item1=itemNames[0];
+           final item2=itemNames.length>1?itemNames[1]:'';
+        
+           
+            return 
+                    Padding(
+         padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),                  child: Container(
+                         width: MediaQuery.of(context).size.width * 0.8,
+                              height: 160,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(39, 5, 168, 244),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16),
+                                  )),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                       Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                         '${item1},${item2}...',
+                                          style: GoogleFonts.lato(
+                                              color: Colors.black, fontSize: 20),
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10, left: 10),
-                                      child: Text(
-                                       'Member:${fetcedcomp.MemberName}',
-                                        style: GoogleFonts.lato(
-                                            color: Colors.black, fontSize: 20),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                         'Member:${fetcedcomp.MemberName}',
+                                          style: GoogleFonts.lato(
+                                              color: Colors.black, fontSize: 20),
+                                        ),
                                       ),
-                                    ),
-                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 10, left: 10),
-                                      child: Text(
-                                       'Issued On:${fetcedcomp.issueDate}',
-                                        style: GoogleFonts.lato(
-                                            color: Colors.black, fontSize: 20),
+                                       Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                         'Issued On:${fetcedcomp.issueDate}',
+                                          style: GoogleFonts.lato(
+                                              color: Colors.black, fontSize: 20),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                    ),
-                  );
-        }),
+                                    ],
+                                  ),
+                      ),
+                    );
+          }),
+      ),
     
         )
       

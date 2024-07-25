@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:inventory/firebase_options.dart';
 import 'package:get/get.dart';
 import 'package:inventory/src/constants/image_strings.dart';
 import 'package:inventory/src/features/authentication/screens/login/login_form_widget.dart';
