@@ -70,9 +70,24 @@ class _ClassscreenState extends State<Classscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffC5E3FF),
+       leading: Theme(
+          data: Theme.of(context).copyWith(
+            iconTheme: IconThemeData(color: Colors.black54), // Change the color here
+          ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+       
+      ),
+       backgroundColor: Color(0xffC5E3FF),
         title: Text(
           widget.title,
+          style: GoogleFonts.lato(
+            color: Colors.black
+          ),
         ),
       ),
       body: Container(

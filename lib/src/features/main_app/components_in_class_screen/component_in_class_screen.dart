@@ -94,7 +94,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(width: 155),
+                          SizedBox(width: 130),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -150,28 +150,31 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                                   SizedBox(
                                     width: 40,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        listcomponent.boxNo.toString(),
-                                        style: GoogleFonts.lato(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        width: 25,
-                                      ),
-                                      Text(
-                                        listcomponent.stock.toString(),
-                                        style: GoogleFonts.lato(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.black),
-                                      )
-                                    ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          listcomponent.boxNo.toString(),
+                                          style: GoogleFonts.lato(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black),
+                                        ),
+                                        SizedBox(
+                                          width: 25,
+                                        ),
+                                        Text(
+                                          listcomponent.stock.toString(),
+                                          style: GoogleFonts.lato(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

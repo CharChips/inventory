@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:inventory/src/features/authentication/screens/log_out_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,6 +18,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final _supabase = Supabase.instance.client;
   final Emailcontroller emailGet = Get.put(Emailcontroller());
+  File? _image;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    super.initState();
+    naamkaran();
+    _loadImage();
+  }
 
   void naamkaran() async {
     final response = await _supabase
@@ -24,29 +37,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
     emailGet.Namefrommail.value = data['name'];
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    naamkaran();
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final imagePath = prefs.getString('profile_image');
+    if (imagePath != null) {
+      setState(() {
+        _image = File(imagePath);
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('profile_image', pickedFile.path);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0xffC5E3FF), title: const Text('My Profile')),
+        leading: Theme(
+          data: Theme.of(context).copyWith(
+            iconTheme: IconThemeData(color: Colors.black54),
+          ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        backgroundColor: const Color(0xffC5E3FF),
+        title: Text('My Profile', style: GoogleFonts.lato(color: Colors.black)),
+      ),
       body: Container(
-        // decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //   colors: [
-        //     Color.fromARGB(255, 118, 184, 238),
-        //     Color.fromARGB(255, 213, 245, 252),
-        //     Color.fromARGB(255, 242, 254, 255)
-        //   ],
-        //   begin: Alignment.bottomCenter,
-        //   end: Alignment.topCenter,
-        // )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,9 +87,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(color: Color(0xffC5E3FF)),
               child: Column(
                 children: [
-                  CircleAvatar(
-                    // backgroundImage: AssetImage("assets/images/dp.png"),
-                    radius: 90,
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      backgroundImage: _image != null
+                          ? FileImage(_image!) as ImageProvider
+                          : NetworkImage("https://hips.hearstapps.com/hmg-prod/images/the-boys-season-3-homelander-1647114039.jpg?crop=0.405xw:1.00xh;0.181xw,0&resize=1200:*"),
+                      radius: 90,
+                    ),
                   ),
                   Obx(
                     () => Padding(

@@ -441,7 +441,7 @@ class _CartscreenState extends State<Cartscreen> {
 
                         }
                            DateTime issueDate = DateTime.now(); // Example issue date
-DateTime scheduledDate = issueDate.add(const Duration(minutes: 1));
+DateTime scheduledDate = issueDate.add(const Duration(days: 14));
 
 String scheduledDateString = DateFormat('yyyy-MM-dd HH:mm:ss').format(scheduledDate);
                                                 scheduleNotification(scheduledDate);
