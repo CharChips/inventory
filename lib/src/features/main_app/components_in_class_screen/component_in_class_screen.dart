@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/model.dart';
-import 'package:inventory/src/data/outputComponent.dart';
+// import 'package:inventory/src/data/outputComponent.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/authentication/controllers/selectquerycontroller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ComponentInClassScreen extends StatefulWidget {
-
   final Component component;
 
   ComponentInClassScreen({required this.component});
@@ -20,18 +19,18 @@ class ComponentInClassScreen extends StatefulWidget {
 class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
   final supabase = Supabase.instance.client;
   final ComponentController componentControl = Get.put(ComponentController());
-    final Selectquerycontroller selectquerycontroller = Get.put(Selectquerycontroller());
+  final Selectquerycontroller selectquerycontroller =
+      Get.put(Selectquerycontroller());
 
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     selectquerycontroller.newres.value.clear();
     selectquerycontroller.fetchComponents(widget.component.name);
   }
- 
- //need a setstate to display the item
+
+  //need a setstate to display the item
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 154, 210, 255),
@@ -59,7 +58,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
               padding: const EdgeInsets.only(top: 30, left: 40),
               child: Text(
                 widget.component.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -79,12 +78,13 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                   children: [
                     Container(
                       height: 35,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border.symmetric(
                           horizontal: BorderSide(color: Colors.black),
                         ),
                       ),
                       child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(width: 25),
                           Text(
@@ -122,6 +122,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                       ),
                     ),
                     Expanded(
+<<<<<<< HEAD
                       child: Obx(
                         ()=> ListView.builder(
                           itemCount: selectquerycontroller.newres.length,
@@ -185,6 +186,67 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                       )
                       
                     ),
+=======
+                        child: Obx(
+                      () => ListView.builder(
+                        itemCount: selectquerycontroller.newres.length,
+                        itemBuilder: (ctx, index) {
+                          print(selectquerycontroller.newres);
+                          final listcomponent =
+                              selectquerycontroller.newres[index];
+                          return Container(
+                            height: 35,
+                            decoration: const BoxDecoration(
+                                border: Border.symmetric(
+                                    horizontal: BorderSide(
+                              color: Colors.black,
+                            ))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  listcomponent.skuid.toString(),
+                                  style: GoogleFonts.lato(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black),
+                                ),
+                                const SizedBox(
+                                  width: 40,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      listcomponent.boxNo.toString(),
+                                      style: GoogleFonts.lato(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black),
+                                    ),
+                                    const SizedBox(
+                                      width: 25,
+                                    ),
+                                    Text(
+                                      listcomponent.stock.toString(),
+                                      style: GoogleFonts.lato(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    )),
+>>>>>>> bebdce8116b829fdf8b3d78078e628483c4ff0f4
                   ],
                 ),
               ),

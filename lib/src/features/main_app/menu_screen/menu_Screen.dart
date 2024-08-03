@@ -15,7 +15,6 @@ class fetcheddata{
 
 }
 
-
 class MenuScreen extends StatefulWidget {
   MenuScreen({super.key});
 
@@ -24,13 +23,13 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-    final supabase = Supabase.instance.client;
+  final supabase = Supabase.instance.client;
 
-     List<fetcheddata> fetchedlist=[];
+  List<fetcheddata> fetchedlist = [];
 
-void fetchpackage()async{
+  void fetchpackage() async {
+    final fetchedpackage = await supabase.from('Transactions').select();
 
- final fetchedpackage=await supabase.from('Transactions').select();
  
 
 
@@ -46,22 +45,15 @@ void fetchpackage()async{
     }
     print(fetchedlist);
 
- setState(() {
-   
- });
-  
+    setState(() {});
+  }
 
-
-}
-   @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchpackage();
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
