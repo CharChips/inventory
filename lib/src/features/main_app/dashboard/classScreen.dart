@@ -119,7 +119,7 @@ class _ClassscreenState extends State<Classscreen> {
         .from(widget.title)
         .select('stock')
         .eq('name', component.name);
-        print(totalitems);
+        print(totalitems[index]);
 
   // for (var item in totalitems) {
     
