@@ -119,16 +119,17 @@ class _ClassscreenState extends State<Classscreen> {
         .from(widget.title)
         .select('stock')
         .eq('name', component.name);
+        print(totalitems);
 
-    if (totalitems != null && totalitems is List) {
-  for (var item in totalitems) {
-    if (item is Map) {
-      item.forEach((key, value) {
-        print('Key: $key, Value: $value');
-      });
-    }
-  }
-} 
+  // for (var item in totalitems) {
+    
+  //     item.forEach((key, value) {
+        
+  //       print('Value: $value');
+        
+  //     });
+    
+  // }
 
   }
 
