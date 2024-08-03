@@ -92,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: CircleAvatar(
                       backgroundImage: _image != null
                           ? FileImage(_image!) as ImageProvider
-                          : NetworkImage("https://hips.hearstapps.com/hmg-prod/images/the-boys-season-3-homelander-1647114039.jpg?crop=0.405xw:1.00xh;0.181xw,0&resize=1200:*"),
+                          :AssetImage("assets/logo/ISA-Header-(LogoOnly)"),
                       radius: 90,
                     ),
                   ),

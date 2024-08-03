@@ -27,6 +27,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    selectquerycontroller.newres.value.clear();
     selectquerycontroller.fetchComponents(widget.component.name);
   }
  
@@ -125,7 +126,6 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                         ()=> ListView.builder(
                           itemCount: selectquerycontroller.newres.length,
                           itemBuilder:(ctx,index) {
-                            print(selectquerycontroller.newres);
                             final listcomponent = selectquerycontroller.newres[index];
                             return Container(
                               height: 35,
@@ -181,9 +181,6 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                             );
                           },
                               
-                        
-                        
-                            
                           ),
                       )
                       

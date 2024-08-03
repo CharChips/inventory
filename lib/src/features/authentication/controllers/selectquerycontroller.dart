@@ -17,14 +17,12 @@ void fetchComponents(compname) async {
   final response = await supabase
       .from(componentControl.ClassName.value)
       .select().eq('name', compname);
-      print(response);
    
   
      for(var entry in response){
         final Outputcomponent com=Outputcomponent(skuid: entry['skuid'], boxNo: entry['boxno'], stock: entry['stock']);
         newres.add(com);
      }
-        print(newres);
    
 }
 

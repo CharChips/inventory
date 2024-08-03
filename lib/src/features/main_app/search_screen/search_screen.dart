@@ -8,6 +8,7 @@ import 'package:inventory/src/data/audiomodules.dart';
 import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
+import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
 
 class Componentcontroller extends GetxController {
   RxList<Component> components = <Component>[].obs;
@@ -105,6 +106,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       return Card(
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         child: ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ComponentInClassScreen(component: component)));
+                          },
                           title: Text(
                             component.name,
                             style: TextStyle(fontWeight: FontWeight.bold),

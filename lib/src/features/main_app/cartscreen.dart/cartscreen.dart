@@ -10,6 +10,7 @@ import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
+import 'package:inventory/src/features/authentication/controllers/thankyoucontroller.dart';
 import 'package:inventory/src/features/main_app/thankyou.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -34,6 +35,7 @@ class _CartscreenState extends State<Cartscreen> {
       Get.put(Emailcontroller());
 
       
+     final Thankyoucontroller thankyoucontroller=Get.put(Thankyoucontroller());
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -104,7 +106,10 @@ class _CartscreenState extends State<Cartscreen> {
 
      await supabase
         .from('Transactions')
-        .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);      
+        .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);    
+
+                thankyoucontroller.ThankyouStatus.value='Successfully returned and re-added to the Inventory';
+
   }
 
   Future<void> insertCartComponents(String memberid, String name, String Class,

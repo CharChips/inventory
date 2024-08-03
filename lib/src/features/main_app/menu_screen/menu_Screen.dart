@@ -5,12 +5,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class fetcheddata{
 
  String MemberName;
-
  List<dynamic> packageitems;
  String issueDate;
+ String? ReturnDate;
  
 
- fetcheddata({required this.MemberName,required this.packageitems,required this.issueDate});
+ fetcheddata({required this.MemberName,required this.packageitems,required this.issueDate,required this.ReturnDate});
 
 
 }
@@ -39,7 +39,7 @@ void fetchpackage()async{
 
          print(item['package']);
         fetchedlist.add(
-          fetcheddata(MemberName: item['name'], packageitems: item['package'], issueDate: item['issuedate'])
+          fetcheddata(MemberName: item['name'], packageitems: item['package'], issueDate: item['issuedate'],ReturnDate: item['returndate'])
           
         );
         
@@ -134,6 +134,16 @@ void fetchpackage()async{
                                             top: 10, left: 10),
                                         child: Text(
                                          'Issued On:${fetcedcomp.issueDate}',
+                                          style: GoogleFonts.lato(
+                                              color: Colors.black, fontSize: 20),
+                                        ),
+                                      ),
+                                        Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                         'Returned On:${fetcedcomp.ReturnDate??'Not Returned'}',
+
                                           style: GoogleFonts.lato(
                                               color: Colors.black, fontSize: 20),
                                         ),

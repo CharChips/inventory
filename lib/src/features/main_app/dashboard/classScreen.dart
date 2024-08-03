@@ -12,6 +12,7 @@ import 'package:inventory/src/data/sensors.dart';
 import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
 import 'package:inventory/src/features/main_app/search_screen/search_screen.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 
 class Classscreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class Classscreen extends StatefulWidget {
 
 class _ClassscreenState extends State<Classscreen> {
   final ComponentController controller=Get.put(ComponentController());
+    final  supabase=Supabase.instance.client;
+
   @override
   void initState() {
     super.initState();
@@ -109,6 +112,17 @@ class _ClassscreenState extends State<Classscreen> {
               itemCount: controller.Classcomponents.length,
               itemBuilder: (context, index) {
                 final component = controller.Classcomponents[index];
+
+                      Future<void>getStock () async{
+
+      final totalitems = await supabase
+        .from(widget.title)
+        .select('stock')
+        .eq('name', component.name);
+
+
+  }
+
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ListTile(
