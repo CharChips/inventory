@@ -75,7 +75,7 @@ class _CartscreenState extends State<Cartscreen> {
   }
 }
 
-  String Dateformatter(){
+  String Dateformater(){
 
      final taarikh=DateTime.now();
   int month=taarikh.month;
@@ -105,9 +105,14 @@ class _CartscreenState extends State<Cartscreen> {
         .from('Transactions')
         .update({'status': 'Returned'}).eq('id', Memberid.text);
 
-    await supabase
-        .from('Transactions')
-        .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);    
+
+    
+     await supabase.from('Transactions').update({
+ 
+    'returndate': Dateformater(),
+
+  }).eq('id', Memberid.text);
+
 
                 thankyoucontroller.ThankyouStatus.value='Successfully returned and re-added to the Inventory';
 
@@ -126,7 +131,8 @@ class _CartscreenState extends State<Cartscreen> {
       'package': cartcomponentsJson,
       'issuedby': emailcontroller.Namefrommail.value,
       'status': 'Issued',
-      'issuedate': Dateformatter()
+      'issuedate': Dateformater(),
+      'returndate':'soon'
     };
 
     final response = await supabase.from('Transactions').insert(data);

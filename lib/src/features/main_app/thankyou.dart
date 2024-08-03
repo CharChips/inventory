@@ -34,7 +34,7 @@ Container(
       SizedBox(height: 50),
       Image(image: AssetImage("assets/logo/tick3.gif")),
       SizedBox(height: 20),
-      Text("Transaction Successful!",style: GoogleFonts.lato(
+      Text(thankyoucontroller.ThankyouStatus.value==''?'Transaction Successful!':thankyoucontroller.ThankyouStatus.value,style: GoogleFonts.lato(
         fontSize: 24,
         color: Colors.black,
         fontWeight: FontWeight.w700
