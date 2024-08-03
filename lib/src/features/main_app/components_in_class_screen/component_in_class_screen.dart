@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/model.dart';
-import 'package:inventory/src/data/outputComponent.dart';
+// import 'package:inventory/src/data/outputComponent.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/authentication/controllers/selectquerycontroller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -39,7 +39,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width * 1,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 154, 210, 255),
@@ -57,7 +57,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
               padding: const EdgeInsets.only(top: 30, left: 40),
               child: Text(
                 widget.component.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
@@ -77,12 +77,13 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                   children: [
                     Container(
                       height: 35,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         border: Border.symmetric(
                           horizontal: BorderSide(color: Colors.black),
                         ),
                       ),
                       child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(width: 25),
                           Text(
@@ -129,7 +130,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                               selectquerycontroller.newres[index];
                           return Container(
                             height: 35,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 border: Border.symmetric(
                                     horizontal: BorderSide(
                               color: Colors.black,
@@ -137,7 +138,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
@@ -147,7 +148,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                                       fontWeight: FontWeight.w700,
                                       color: Colors.black),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 40,
                                 ),
                                 Row(
@@ -161,7 +162,7 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 25,
                                     ),
                                     Text(

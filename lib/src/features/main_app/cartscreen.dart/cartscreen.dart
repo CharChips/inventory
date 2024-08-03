@@ -24,9 +24,8 @@ class _CartscreenState extends State<Cartscreen> {
 
   final ComponentController componentcontroller =
       Get.put(ComponentController());
-      
-  final Emailcontroller emailcontroller =
-      Get.put(Emailcontroller());
+
+  final Emailcontroller emailcontroller = Get.put(Emailcontroller());
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -34,7 +33,7 @@ class _CartscreenState extends State<Cartscreen> {
         .from(componentcontroller.ClassName.value)
         .select('stock')
         .eq('skuid', component.skuid);
-    final stockvalue = tablestock [0]['stock']as int;
+    final stockvalue = tablestock[0]['stock'] as int;
     final finalstock = stockvalue - component.Quantity;
 
     await supabase
@@ -42,40 +41,37 @@ class _CartscreenState extends State<Cartscreen> {
         .update({'stock': finalstock}).eq('skuid', component.skuid);
   }
 
-  String Dateformatter(){
+  String Dateformatter() {
+    final taarikh = DateTime.now();
+    int month = taarikh.month;
+    int day = taarikh.day;
+    int year = taarikh.year;
 
-  final taarikh=DateTime.now();
-  int month=taarikh.month;
-  int day=taarikh.day;
-  int year=taarikh.year;
+    String aslitaarikh = '${day}/${month}/${year}';
 
-  String aslitaarikh='${day}/${month}/${year}';
-
-  return aslitaarikh;
-
+    return aslitaarikh;
   }
 
-  
   Future<void> returnQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
     final tablestock = await supabase
         .from(componentcontroller.ClassName.value)
         .select('stock')
         .eq('skuid', component.skuid);
-    final stockvalue = tablestock [0]['stock']as int;
+    final stockvalue = tablestock[0]['stock'] as int;
     final finalstock = stockvalue + component.Quantity;
 
     await supabase
         .from(componentcontroller.ClassName.value)
         .update({'stock': finalstock}).eq('skuid', component.skuid);
 
-     await supabase
+    await supabase
         .from('Transactions')
-        .update({'status': 'Returned'}).eq('memberid',Memberid.text);  
+        .update({'status': 'Returned'}).eq('id', Memberid.text);
 
-     await supabase
+    await supabase
         .from('Transactions')
-        .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);      
+        .update({'returndate': Dateformatter()}).eq('id', Memberid.text);
   }
 
   Future<void> insertCartComponents(String memberid, String name, String Class,
@@ -84,19 +80,18 @@ class _CartscreenState extends State<Cartscreen> {
         cartcomponents.map((co) => co.toJson()).toList();
 
     final data = {
-      'memberid': memberid,
+      'id': memberid,
       'name': name,
       'class': Class,
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
-      'issuedby':emailcontroller.Namefrommail.value,
-      'status':'Issued',
-      'issuedate':Dateformatter()
+      'issuedby': emailcontroller.Namefrommail.value,
+      'status': 'Issued',
+      'issuedate': Dateformatter()
     };
 
     final response = await supabase.from('Transactions').insert(data);
     print(data);
-
   }
 
   @override
@@ -105,8 +100,8 @@ class _CartscreenState extends State<Cartscreen> {
         Get.put(ComponentController());
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xffC5E3FF), 
-          elevation: 0, 
+          backgroundColor: Color(0xffC5E3FF),
+          elevation: 0,
           leading: IconButton(
             icon:
                 Icon(Icons.menu, color: Colors.black87), // Hamburger menu icon
@@ -118,7 +113,7 @@ class _CartscreenState extends State<Cartscreen> {
             'ISA-VESIT',
             style: GoogleFonts.montserrat(
               color: Colors.black87,
-              fontWeight: FontWeight.bold, 
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -383,30 +378,21 @@ class _CartscreenState extends State<Cartscreen> {
                     ),
                     TextButton(
                       onPressed: () async {
-                        if(componentcontroller.returnorissue.value==false)
-                        {
-                        await insertCartComponents(
-                            Memberid.text,
-                            Name.text,
-                            Class.text,
-                            PhoneNumber.text,
-                            componentcontroller.Cartcomponents);
+                        if (componentcontroller.returnorissue.value == false) {
+                          await insertCartComponents(
+                              Memberid.text,
+                              Name.text,
+                              Class.text,
+                              PhoneNumber.text,
+                              componentcontroller.Cartcomponents);
 
-                        for (var item in componentcontroller.Cartcomponents) {
-                          
+                          for (var item in componentcontroller.Cartcomponents) {
                             await updateQuantity(item);
-                          
-                        }
-                        
-                        }
-                        else{
-
-                           for (var item in componentcontroller.Cartcomponents) {
-                          
+                          }
+                        } else {
+                          for (var item in componentcontroller.Cartcomponents) {
                             await returnQuantity(item);
-                          
-                        }
-
+                          }
                         }
                         Navigator.push(
                             context,
