@@ -120,9 +120,19 @@ class _ClassscreenState extends State<Classscreen> {
         .select('stock')
         .eq('name', component.name);
 
+    if (totalitems != null && totalitems is List) {
+  for (var item in totalitems) {
+    if (item is Map) {
+      item.forEach((key, value) {
+        print('Key: $key, Value: $value');
+      });
+    }
+  }
+} 
 
   }
 
+        getStock();
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ListTile(
