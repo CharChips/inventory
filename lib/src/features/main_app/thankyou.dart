@@ -33,12 +33,15 @@ Container(
     children: [
       SizedBox(height: 50),
       Image(image: AssetImage("assets/logo/tick3.gif")),
-      SizedBox(height: 20),
-      Text(thankyoucontroller.ThankyouStatus.value==''?'Transaction Successful!':thankyoucontroller.ThankyouStatus.value,style: GoogleFonts.lato(
-        fontSize: 24,
-        color: Colors.black,
-        fontWeight: FontWeight.w700
-      ),)
+      SizedBox(height: 1),
+      Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: Text(thankyoucontroller.ThankyouStatus.value==''?'Transaction Successful!':thankyoucontroller.ThankyouStatus.value,style: GoogleFonts.lato(
+          fontSize: 20,
+          color: Colors.black,
+          fontWeight: FontWeight.w700
+        ),),
+      )
     ],
   ),
 )
