@@ -14,26 +14,28 @@ import 'package:inventory/src/features/main_app/search_screen/search_screen.dart
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+class Stock {
+  int Stockval;
+
+  Stock({required this.Stockval});
+}
 
 class Classscreen extends StatefulWidget {
   const Classscreen({required this.title, super.key});
 
   final String title;
 
-  //final List<Map<String,String>> componentList;
-
   @override
   State<Classscreen> createState() => _ClassscreenState();
 }
 
 class _ClassscreenState extends State<Classscreen> {
-  final ComponentController controller=Get.put(ComponentController());
-    final  supabase=Supabase.instance.client;
+  final ComponentController controller = Get.put(ComponentController());
+  final supabase = Supabase.instance.client;
 
   @override
   void initState() {
     super.initState();
-    // Add some sample data for demonstration purposes
     controller.Classcomponents.clear();
     List<Component> componentList = getComponentListbytitle(widget.title);
     for (Component elem in componentList) {
@@ -45,37 +47,46 @@ class _ClassscreenState extends State<Classscreen> {
     switch (title) {
       case 'Microcontroller':
         return Microcontrollers().components;
-
       case 'Communication Modules':
         return CommunicationModules().components;
-
       case 'Sensors':
         return Sensors().components;
-
       case 'Displays & Indicators':
         return Displaysandindicators().components;
-
       case 'Transistors and Diodes':
         return Transistorsanddiodes().components;
-
       case 'Actuators and Motors':
         return ActuatorsandMotors().components;
-
       case 'Audio Modules':
         return Audiomodules().components;
-
       default:
         return [];
     }
+  }
+
+  Future<int> getStock(String componentName) async {
+    final totalitems = await supabase
+        .from(widget.title)
+        .select('stock')
+        .eq('name', componentName);
+
+    final stockItems = totalitems.map((item) => Stock(Stockval: item['stock'])).toList();
+
+    var tot = 0;
+    for (var item in stockItems) {
+      tot = tot + item.Stockval;
+    }
+
+    return tot;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       leading: Theme(
+        leading: Theme(
           data: Theme.of(context).copyWith(
-            iconTheme: IconThemeData(color: Colors.black54), // Change the color here
+            iconTheme: IconThemeData(color: Colors.black54),
           ),
           child: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -83,14 +94,11 @@ class _ClassscreenState extends State<Classscreen> {
               Navigator.pop(context);
             },
           ),
-       
-      ),
-       backgroundColor: Color(0xffC5E3FF),
+        ),
+        backgroundColor: Color(0xffC5E3FF),
         title: Text(
           widget.title,
-          style: GoogleFonts.lato(
-            color: Colors.black
-          ),
+          style: GoogleFonts.lato(color: Colors.black),
         ),
       ),
       body: Container(
@@ -113,39 +121,29 @@ class _ClassscreenState extends State<Classscreen> {
               itemBuilder: (context, index) {
                 final component = controller.Classcomponents[index];
 
-                      Future<void>getStock () async{
-
-      final totalitems = await supabase
-        .from(widget.title)
-        .select('stock')
-        .eq('name', component.name);
-
-  // for (var item in totalitems) {
-    
-  //     item.forEach((key, value) {
-        
-  //       print('Value: $value');
-        
-  //     });
-    
-  // }
-
-  }
-
-        getStock();
                 return Card(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: ListTile(
-                      title: Text(
-                        component.name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                          'Box No: ${component.boxNo}\nStock: ${component.stock}'),
-                      onTap: () {
-                        Get.to(
-                            () => ComponentInClassScreen(component: component));
-                      }),
+                    title: Text(
+                      component.name,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: FutureBuilder<int>(
+                      future: getStock(component.name),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Text('Box No: ${component.boxNo}\nStock: Loading...');
+                        } else if (snapshot.hasError) {
+                          return Text('Box No: ${component.boxNo}\nStock: Error');
+                        } else {
+                          return Text('Box No: ${component.boxNo}\nStock: ${snapshot.data}');
+                        }
+                      },
+                    ),
+                    onTap: () {
+                      Get.to(() => ComponentInClassScreen(component: component));
+                    },
+                  ),
                 );
               },
             ),
