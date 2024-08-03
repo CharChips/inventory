@@ -122,7 +122,6 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                       ),
                     ),
                     Expanded(
-<<<<<<< HEAD
                       child: Obx(
                         ()=> ListView.builder(
                           itemCount: selectquerycontroller.newres.length,
@@ -186,67 +185,6 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                       )
                       
                     ),
-=======
-                        child: Obx(
-                      () => ListView.builder(
-                        itemCount: selectquerycontroller.newres.length,
-                        itemBuilder: (ctx, index) {
-                          print(selectquerycontroller.newres);
-                          final listcomponent =
-                              selectquerycontroller.newres[index];
-                          return Container(
-                            height: 35,
-                            decoration: const BoxDecoration(
-                                border: Border.symmetric(
-                                    horizontal: BorderSide(
-                              color: Colors.black,
-                            ))),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  listcomponent.skuid.toString(),
-                                  style: GoogleFonts.lato(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black),
-                                ),
-                                const SizedBox(
-                                  width: 40,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      listcomponent.boxNo.toString(),
-                                      style: GoogleFonts.lato(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black),
-                                    ),
-                                    const SizedBox(
-                                      width: 25,
-                                    ),
-                                    Text(
-                                      listcomponent.stock.toString(),
-                                      style: GoogleFonts.lato(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    )),
->>>>>>> bebdce8116b829fdf8b3d78078e628483c4ff0f4
                   ],
                 ),
               ),

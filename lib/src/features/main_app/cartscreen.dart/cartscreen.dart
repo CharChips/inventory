@@ -7,7 +7,6 @@ import 'package:http/http.dart'as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
-import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/authentication/controllers/emailcontroller.dart';
 import 'package:inventory/src/features/authentication/controllers/thankyoucontroller.dart';
@@ -35,6 +34,10 @@ class _CartscreenState extends State<Cartscreen> {
 
       
      final Thankyoucontroller thankyoucontroller=Get.put(Thankyoucontroller());
+     
+       var day;
+       
+         var month;
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -50,7 +53,6 @@ class _CartscreenState extends State<Cartscreen> {
         .update({'stock': finalstock}).eq('skuid', component.skuid);
   }
 
-<<<<<<< HEAD
   void scheduleNotification(DateTime scheduledDate) async {
   final response = await http.post(
     Uri.parse('https://onesignal.com/api/v1/notifications'),
@@ -74,17 +76,16 @@ class _CartscreenState extends State<Cartscreen> {
 }
 
   String Dateformatter(){
-=======
-  String Dateformatter() {
-    final taarikh = DateTime.now();
-    int month = taarikh.month;
-    int day = taarikh.day;
-    int year = taarikh.year;
->>>>>>> bebdce8116b829fdf8b3d78078e628483c4ff0f4
 
-    String aslitaarikh = '${day}/${month}/${year}';
+     final taarikh=DateTime.now();
+  int month=taarikh.month;
+  int day=taarikh.day;
+  int year=taarikh.year;
 
-    return aslitaarikh;
+  String aslitaarikh='${day}/${month}/${year}';
+
+  return aslitaarikh;
+
   }
 
   Future<void> returnQuantity(Cartcomponent component) async {
@@ -106,14 +107,10 @@ class _CartscreenState extends State<Cartscreen> {
 
     await supabase
         .from('Transactions')
-<<<<<<< HEAD
         .update({'returndate': Dateformatter()}).eq('memberid',Memberid.text);    
 
                 thankyoucontroller.ThankyouStatus.value='Successfully returned and re-added to the Inventory';
 
-=======
-        .update({'returndate': Dateformatter()}).eq('id', Memberid.text);
->>>>>>> bebdce8116b829fdf8b3d78078e628483c4ff0f4
   }
 
   Future<void> insertCartComponents(String memberid, String name, String Class,

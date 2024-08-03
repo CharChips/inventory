@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/Actuators&Motors.dart';
 import 'package:inventory/src/data/Communication%20Modules.dart';
 import 'package:inventory/src/data/DisplaysandIndicators.dart';
@@ -14,6 +14,7 @@ import 'package:inventory/src/features/main_app/search_screen/search_screen.dart
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+
 class Classscreen extends StatefulWidget {
   const Classscreen({required this.title, super.key});
 
@@ -26,13 +27,9 @@ class Classscreen extends StatefulWidget {
 }
 
 class _ClassscreenState extends State<Classscreen> {
-<<<<<<< HEAD
   final ComponentController controller=Get.put(ComponentController());
     final  supabase=Supabase.instance.client;
 
-=======
-  final ComponentController controller = Get.put(ComponentController());
->>>>>>> bebdce8116b829fdf8b3d78078e628483c4ff0f4
   @override
   void initState() {
     super.initState();
@@ -122,7 +119,6 @@ class _ClassscreenState extends State<Classscreen> {
         .from(widget.title)
         .select('stock')
         .eq('name', component.name);
-        print(totalitems[index]);
 
   // for (var item in totalitems) {
     
