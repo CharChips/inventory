@@ -23,7 +23,7 @@ class Cartscreen extends StatefulWidget {
 class _CartscreenState extends State<Cartscreen> {
   final supabase = Supabase.instance.client;
   final TextEditingController Memberid = TextEditingController();
-  final TextEditingController Name = TextEditingController();
+  TextEditingController Name = TextEditingController();
   final TextEditingController PhoneNumber = TextEditingController();
   final TextEditingController Class = TextEditingController();
 
@@ -139,6 +139,16 @@ class _CartscreenState extends State<Cartscreen> {
     print(data);
   }
 
+Future<void> getDetails(String id) async {
+    final details = await supabase
+        .from('Members')
+        .select()
+        .eq('ISA Login ID', id);
+
+        Name.text=details.first['Name'] as String;
+        Class.text=details.first['Division'] as String;
+
+  }
 
 
 
@@ -192,17 +202,48 @@ class _CartscreenState extends State<Cartscreen> {
                           fontWeight: FontWeight.bold,
                           color: const Color.fromARGB(255, 3, 38, 66)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: TextField(
-                        style: const TextStyle(
-                          color: Colors.black,
+                    Row(
+                      
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 40),
+                            child: 
+                                TextField(
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  controller: Memberid,
+                                  decoration: InputDecoration(
+                                    hintText: "Enter Member ID",
+                                  ),
+                                ),
+                               
+                                
+                              
+                          ),
                         ),
-                        controller: Memberid,
-                        decoration: InputDecoration(
-                          hintText: "Enter Member ID",
-                        ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xff19335A),
+                              borderRadius: BorderRadius.circular(
+                                10
+                              )
+                            ),
+                            child: TextButton(onPressed: (){
+                                    getDetails(Memberid.text);
+                                  }, child: Text('Get Details',style:  GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 12,
+                              ),)),
+                          )),
+                        )
+                        
+                      ],
                     ),
                     SizedBox(
                       height: 20,
@@ -217,15 +258,14 @@ class _CartscreenState extends State<Cartscreen> {
                     Padding(
                       padding: const EdgeInsets.only(right: 30),
                       child: TextField(
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                        controller: Name,
-                        decoration: InputDecoration(
-                          hintText: "Enter Name",
-                        ),
-                      ),
-                    ),
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          controller: Name,
+                          decoration: InputDecoration(
+                            hintText: "Enter Name",
+                          ),
+                        )),
                     SizedBox(
                       height: 20,
                     ),
