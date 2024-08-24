@@ -118,28 +118,46 @@ class _CartscreenState extends State<Cartscreen> {
 
   }
 
-  Future<void> insertCartComponents(String memberid, String name, String Class,
+  Future<void> insertCartComponents(String memberid, String name, String className,
       String phonenumber, List<Cartcomponent> cartcomponents) async {
     List<Map<String, dynamic>> cartcomponentsJson =
-        cartcomponents.map((co) => co.toJson()).toList();
+    cartcomponents.map((co) => co.toJson()).toList();
 
     final data = {
       'id': memberid,
       'name': name,
-      'class': Class,
+      'class': className,
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
       'issuedby': emailcontroller.Namefrommail.value,
       'status': 'Issued',
       'issuedate': Dateformater(),
-      'returndate':'soon'
+      'returndate': 'soon'
     };
 
-    final response = await supabase.from('Transactions').insert(data);
-    print(data);
+    try {
+      // Check if the record exists
+      final existingRecord = await supabase
+          .from('Transactions')
+          .select()
+          .eq('id', memberid)
+          .single();
+
+      if (existingRecord != null) {
+        // If record exists, update it
+        await supabase.from('Transactions').update(data).eq('id', memberid);
+      } else {
+        // If record does not exist, insert new record
+        await supabase.from('Transactions').insert(data);
+      }
+    } catch (e) {
+      // Handle any errors that occur
+      print('Error inserting/updating record: $e');
+    }
   }
 
-Future<void> getDetails(String id) async {
+
+  Future<void> getDetails(String id) async {
     final details = await supabase
         .from('Members')
         .select()
