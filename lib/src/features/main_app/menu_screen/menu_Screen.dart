@@ -54,28 +54,32 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void applyFilters() {
-    filteredList = fetchedList.where((data) {
-      final matchesName = selectedFilter == null || data.memberName.contains(selectedFilter!);
-      final matchesQuery = searchQuery.isEmpty ||
-          data.packageItems.any((item) =>
-              item['compname'].toString().toLowerCase().contains(searchQuery.toLowerCase()));
-      return matchesName && matchesQuery;
-    }).toList();
+    setState(() {
+      // Filter based on search query and selected filter
+      filteredList = fetchedList.where((data) {
+        // Search in memberName and package items
+        final matchesMemberName = data.memberName.toLowerCase().contains(searchQuery.toLowerCase());
+        final matchesPackageItems = data.packageItems.any((item) =>
+            item['compname'].toString().toLowerCase().contains(searchQuery.toLowerCase()));
 
-    filteredList.sort((a, b) {
+        return matchesMemberName || matchesPackageItems;
+      }).toList();
+
+      // Sort the filtered list based on the selected filter
       switch (selectedFilter) {
         case 'Member Name':
-          return a.memberName.compareTo(b.memberName);
+          filteredList.sort((a, b) => a.memberName.compareTo(b.memberName));
+          break;
         case 'Issue Date':
-          return a.issueDate.compareTo(b.issueDate);
+          filteredList.sort((a, b) => a.issueDate.compareTo(b.issueDate));
+          break;
         case 'Return Date':
-          return (a.returnDate ?? '').compareTo(b.returnDate ?? '');
+          filteredList.sort((a, b) => (a.returnDate ?? '').compareTo(b.returnDate ?? ''));
+          break;
         default:
-          return 0;
+          break;
       }
     });
-
-    setState(() {});
   }
 
   @override
@@ -112,13 +116,15 @@ class _MenuScreenState extends State<MenuScreen> {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Search...',
-                          hintStyle: GoogleFonts.lato(color: const Color.fromARGB(255, 11, 12, 37)), // Change hint text color
+                          hintStyle: GoogleFonts.lato(
+                            color: const Color.fromARGB(255, 11, 12, 37),
+                          ),
                           border: OutlineInputBorder(),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue), // Change border color
+                            borderSide: BorderSide(color: Colors.blue),
                           ),
                         ),
-                        style: GoogleFonts.lato(color: Colors.black), // Change text color
+                        style: GoogleFonts.lato(color: Colors.black),
                         onChanged: (value) {
                           searchQuery = value;
                           applyFilters();
@@ -130,7 +136,9 @@ class _MenuScreenState extends State<MenuScreen> {
                       value: selectedFilter,
                       hint: Text(
                         'Filter by',
-                        style: GoogleFonts.lato(color: const Color.fromARGB(255, 11, 12, 37)), // Change hint text color
+                        style: GoogleFonts.lato(
+                          color: const Color.fromARGB(255, 11, 12, 37),
+                        ),
                       ),
                       items: [
                         'Member Name',
@@ -141,18 +149,19 @@ class _MenuScreenState extends State<MenuScreen> {
                           value: value,
                           child: Text(
                             value,
-                            style: GoogleFonts.lato(color: const Color.fromARGB(255, 228, 227, 229)), // Change item text color
+                            style: GoogleFonts.lato(
+                              color: const Color.fromARGB(255, 228, 227, 229),
+                            ),
                           ),
                         );
                       }).toList(),
                       onChanged: (value) {
-                        setState(() {
-                          selectedFilter = value;
-                          applyFilters();
-                        });
+                        selectedFilter = value;
+                        applyFilters();
                       },
-                      dropdownColor: Colors.black, // Change dropdown background color
-                      iconEnabledColor: const Color.fromARGB(255, 11, 12, 37), // Change dropdown icon color
+                      dropdownColor: Colors.black,
+                      iconEnabledColor:
+                          const Color.fromARGB(255, 11, 12, 37),
                     ),
                   ],
                 ),
@@ -163,16 +172,18 @@ class _MenuScreenState extends State<MenuScreen> {
                 itemCount: filteredList.length,
                 itemBuilder: (ctx, index) {
                   final fetchedComp = filteredList[index];
-                  final List<String> itemNames =
-                      fetchedComp.packageItems.map<String>((item) => item['compname'].toString()).toList();
+                  final List<String> itemNames = fetchedComp.packageItems
+                      .map<String>((item) => item['compname'].toString())
+                      .toList();
                   final item1 = itemNames.isNotEmpty ? itemNames[0] : '';
                   final item2 = itemNames.length > 1 ? itemNames[1] : '';
 
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: 200, // Increased height
+                      height: 200,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(39, 5, 168, 244),
                         borderRadius: BorderRadius.all(
@@ -186,28 +197,40 @@ class _MenuScreenState extends State<MenuScreen> {
                             padding: const EdgeInsets.only(top: 15, left: 15),
                             child: Text(
                               '${item1}, ${item2}...',
-                              style: GoogleFonts.lato(color: Colors.black, fontSize: 20),
+                              style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10, left: 15),
                             child: Text(
                               'Member: ${fetchedComp.memberName}',
-                              style: GoogleFonts.lato(color: Colors.black, fontSize: 18),
+                              style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10, left: 15),
                             child: Text(
                               'Issued On: ${fetchedComp.issueDate}',
-                              style: GoogleFonts.lato(color: Colors.black, fontSize: 18),
+                              style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10, left: 15),
                             child: Text(
                               'Returned On: ${fetchedComp.returnDate ?? 'Not Returned'}',
-                              style: GoogleFonts.lato(color: Colors.black, fontSize: 18),
+                              style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ],
