@@ -53,6 +53,7 @@ dependencies:
   firebase_messaging: any
   onesignal_flutter: ^5.2.2
   image_picker: ^1.1.2
+  qr_code_scanner: ^1.0.1
   # syncfusion_flutter_pdfviewer: ^26.1.40
 
 
