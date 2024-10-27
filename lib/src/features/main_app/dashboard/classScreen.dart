@@ -51,7 +51,7 @@ class _ClassscreenState extends State<Classscreen> {
         return CommunicationModules().components;
       case 'Sensors':
         return Sensors().components;
-      case 'Displays & Indicators':
+      case 'Display & Indicators':
         return Displaysandindicators().components;
       case 'Transistors and Diodes':
         return Transistorsanddiodes().components;

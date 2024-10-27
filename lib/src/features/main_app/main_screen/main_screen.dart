@@ -67,9 +67,12 @@ class _DashboardState extends State<MainScreen> {
       body: Center(
         child: MainScreen._screenOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
+      bottomNavigationBar:
+      
+       CustomBottomNavigationBar(
         currentIndex: _selectedIndex >= 2 ? _selectedIndex + 1 : _selectedIndex,
         onTap: _onItemTapped,
+
       ),
     );
   }
