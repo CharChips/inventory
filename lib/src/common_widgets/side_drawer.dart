@@ -30,7 +30,7 @@ class CustomSideDrawer extends StatelessWidget {
               ),),
               onTap: () {
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => GuidelinesPdf()));
+                    MaterialPageRoute(builder: (context) => GuidelinesScreen()));
               },
             ),
             ListTile(
