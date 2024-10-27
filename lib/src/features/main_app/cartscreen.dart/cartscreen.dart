@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart'as http;
-
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
@@ -12,6 +10,8 @@ import 'package:inventory/src/features/authentication/controllers/emailcontrolle
 import 'package:inventory/src/features/authentication/controllers/thankyoucontroller.dart';
 import 'package:inventory/src/features/main_app/thankyou.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'dart:convert'; 
 
 class Cartscreen extends StatefulWidget {
   const Cartscreen({super.key});
@@ -32,12 +32,11 @@ class _CartscreenState extends State<Cartscreen> {
 
   final Emailcontroller emailcontroller = Get.put(Emailcontroller());
 
-      
-     final Thankyoucontroller thankyoucontroller=Get.put(Thankyoucontroller());
-     
-       var day;
-       
-         var month;
+  final Thankyoucontroller thankyoucontroller = Get.put(Thankyoucontroller());
+
+  var day;
+
+  var month;
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -54,38 +53,39 @@ class _CartscreenState extends State<Cartscreen> {
   }
 
   void scheduleNotification(DateTime scheduledDate) async {
-  final response = await http.post(
-    Uri.parse('https://onesignal.com/api/v1/notifications'),
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-      "Authorization": "Basic ZjI3ZTcwZjEtNTU5Zi00NTYwLWJlMDEtNTUzYmE0ZWQ0MmIy"
-    },
-    body: jsonEncode({
-      "app_id": "329b0b98-b961-4613-ae74-94e4c17dd44f",
-      "included_segments": ["All"], // You can target specific segments or use player IDs
-      "contents": {"en": "Reminder: Please return the item you borrowed."},
-      "send_after": scheduledDate.toIso8601String() // Scheduled date
-    }),
-  );
+    final response = await http.post(
+      Uri.parse('https://onesignal.com/api/v1/notifications'),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        "Authorization":
+            "Basic ZjI3ZTcwZjEtNTU5Zi00NTYwLWJlMDEtNTUzYmE0ZWQ0MmIy"
+      },
+      body: jsonEncode({
+        "app_id": "329b0b98-b961-4613-ae74-94e4c17dd44f",
+        "included_segments": [
+          "All"
+        ], // You can target specific segments or use player IDs
+        "contents": {"en": "Reminder: Please return the item you borrowed."},
+        "send_after": scheduledDate.toIso8601String() // Scheduled date
+      }),
+    );
 
-  if (response.statusCode == 200) {
-    print("Notification scheduled successfully!");
-  } else {
-    print("Failed to schedule notification: ${response.body}");
+    if (response.statusCode == 200) {
+      print("Notification scheduled successfully!");
+    } else {
+      print("Failed to schedule notification: ${response.body}");
+    }
   }
-}
 
-  String Dateformater(){
+  String Dateformater() {
+    final taarikh = DateTime.now();
+    int month = taarikh.month;
+    int day = taarikh.day;
+    int year = taarikh.year;
 
-     final taarikh=DateTime.now();
-  int month=taarikh.month;
-  int day=taarikh.day;
-  int year=taarikh.year;
+    String aslitaarikh = '${day}/${month}/${year}';
 
-  String aslitaarikh='${day}/${month}/${year}';
-
-  return aslitaarikh;
-
+    return aslitaarikh;
   }
 
   Future<void> returnQuantity(Cartcomponent component) async {
@@ -105,52 +105,92 @@ class _CartscreenState extends State<Cartscreen> {
         .from('Transactions')
         .update({'status': 'Returned'}).eq('id', Memberid.text);
 
+    await supabase.from('Transactions').update({
+      'returndate': Dateformater(),
+    }).eq('id', Memberid.text);
 
-    
-     await supabase.from('Transactions').update({
- 
-    'returndate': Dateformater(),
-
-  }).eq('id', Memberid.text);
-
-
-                thankyoucontroller.ThankyouStatus.value='Successfully returned and re-added to the Inventory';
-
+    thankyoucontroller.ThankyouStatus.value =
+        'Successfully returned and re-added to the Inventory';
   }
 
-  Future<void> insertCartComponents(String memberid, String name, String Class,
-      String phonenumber, List<Cartcomponent> cartcomponents) async {
+  Future<void> insertCartComponents(
+      String memberid,
+      String name,
+      String className,
+      String phonenumber,
+      List<Cartcomponent> cartcomponents) async {
     List<Map<String, dynamic>> cartcomponentsJson =
         cartcomponents.map((co) => co.toJson()).toList();
 
     final data = {
       'id': memberid,
       'name': name,
-      'class': Class,
+      'class': className,
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
       'issuedby': emailcontroller.Namefrommail.value,
       'status': 'Issued',
       'issuedate': Dateformater(),
-      'returndate':'soon'
+      'returndate': 'soon'
     };
 
-    final response = await supabase.from('Transactions').insert(data);
-    print(data);
+    try {
+      // Check if the record exists
+      final existingRecord = await supabase
+          .from('Transactions')
+          .select()
+          .eq('id', memberid)
+          .single();
+
+      if (existingRecord != null) {
+        // If record exists, update it
+        await supabase.from('Transactions').update(data).eq('id', memberid);
+      } else {
+        // If record does not exist, insert new record
+        await supabase.from('Transactions').insert(data);
+      }
+    } catch (e) {
+      // Handle any errors that occur
+      print('Error inserting/updating record: $e');
+    }
   }
 
-Future<void> getDetails(String id) async {
-    final details = await supabase
-        .from('Members')
-        .select()
-        .eq('ISA Login ID', id);
+  // Future<void> getDetails(String id) async {
+  //   final details =
+  //       await supabase.from('Members').select().eq('ISA Login ID', id);
 
-        Name.text=details.first['Name'] as String;
-        Class.text=details.first['Division'] as String;
+  //   Name.text = details.first['Name'] as String;
+  //   Class.text = details.first['Division'] as String;
+  // }
 
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  QRViewController? controller;
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      if (scanData.code != null) {
+        setState(() {
+        
+          Map<String, dynamic> scannedData = jsonDecode(scanData.code!);
+
+          Memberid.text = scannedData['member_id'] ?? '';
+          Name.text = scannedData['name'] ?? '';
+          Class.text = scannedData['division'] ?? ''; 
+        });
+      }
+
+      controller.pauseCamera(); 
+      Navigator.of(context).pop();
+    });
   }
 
 
+
+  void _scanQRCode() {
+    controller?.resumeCamera();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,45 +243,35 @@ Future<void> getDetails(String id) async {
                           color: const Color.fromARGB(255, 3, 38, 66)),
                     ),
                     Row(
-                      
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 40),
-                            child: 
-                                TextField(
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                  controller: Memberid,
-                                  decoration: InputDecoration(
+                              padding: const EdgeInsets.only(right: 40),
+                              child: TextField(
+                                style: const TextStyle(color: Colors.black),
+                                controller: Memberid,
+                                decoration: InputDecoration(
                                     hintText: "Enter Member ID",
-                                  ),
-                                ),
-                               
-                                
-                              
-                          ),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          _scanQRCode();
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    content: Container(
+                                                      height: 300,
+                                                      width: 300,
+                                                      child: QRView(
+                                                          key: qrKey,
+                                                          onQRViewCreated:
+                                                              _onQRViewCreated),
+                                                    ),
+                                                  ));
+                                        },
+                                        icon:
+                                            const Icon(Icons.qr_code_scanner))),
+                              )),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xff19335A),
-                              borderRadius: BorderRadius.circular(
-                                10
-                              )
-                            ),
-                            child: TextButton(onPressed: (){
-                                    getDetails(Memberid.text);
-                                  }, child: Text('Get Details',style:  GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 12,
-                              ),)),
-                          )),
-                        )
                         
                       ],
                     ),
@@ -256,8 +286,8 @@ Future<void> getDetails(String id) async {
                           color: const Color.fromARGB(255, 3, 38, 66)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 30),
-                      child: TextField(
+                        padding: const EdgeInsets.only(right: 30),
+                        child: TextField(
                           style: const TextStyle(
                             color: Colors.black,
                           ),
@@ -482,11 +512,15 @@ Future<void> getDetails(String id) async {
                             await returnQuantity(item);
                           }
                         }
-                           DateTime issueDate = DateTime.now(); // Example issue date
-DateTime scheduledDate = issueDate.add(const Duration(days: 14));
+                        DateTime issueDate =
+                            DateTime.now(); // Example issue date
+                        DateTime scheduledDate =
+                            issueDate.add(const Duration(days: 14));
 
-String scheduledDateString = DateFormat('yyyy-MM-dd HH:mm:ss').format(scheduledDate);
-                                                scheduleNotification(scheduledDate);
+                        String scheduledDateString =
+                            DateFormat('yyyy-MM-dd HH:mm:ss')
+                                .format(scheduledDate);
+                        scheduleNotification(scheduledDate);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

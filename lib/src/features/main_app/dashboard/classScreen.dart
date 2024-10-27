@@ -7,6 +7,7 @@ import 'package:inventory/src/data/DisplaysandIndicators.dart';
 import 'package:inventory/src/data/TransistorsandDiodes.dart';
 import 'package:inventory/src/data/audiomodules.dart';
 import 'package:inventory/src/data/microControllerList.dart';
+import 'package:inventory/src/data/connectorsandswitches.dart';
 import 'package:inventory/src/data/model.dart';
 import 'package:inventory/src/data/sensors.dart';
 import 'package:inventory/src/features/main_app/components_in_class_screen/component_in_class_screen.dart';
@@ -59,6 +60,8 @@ class _ClassscreenState extends State<Classscreen> {
         return ActuatorsandMotors().components;
       case 'Audio Modules':
         return Audiomodules().components;
+      case 'Connectors and Switches':
+        return Connectorsandswitches().components;
       default:
         return [];
     }
@@ -70,7 +73,8 @@ class _ClassscreenState extends State<Classscreen> {
         .select('stock')
         .eq('name', componentName);
 
-    final stockItems = totalitems.map((item) => Stock(Stockval: item['stock'])).toList();
+    final stockItems =
+        totalitems.map((item) => Stock(Stockval: item['stock'])).toList();
 
     var tot = 0;
     for (var item in stockItems) {
@@ -131,17 +135,22 @@ class _ClassscreenState extends State<Classscreen> {
                     subtitle: FutureBuilder<int>(
                       future: getStock(component.name),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Text('Box No: ${component.boxNo}\nStock: Loading...');
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Text(
+                              'Box No: ${component.boxNo}\nStock: Loading...');
                         } else if (snapshot.hasError) {
-                          return Text('Box No: ${component.boxNo}\nStock: Error');
+                          return Text(
+                              'Box No: ${component.boxNo}\nStock: Error');
                         } else {
-                          return Text('Box No: ${component.boxNo}\nStock: ${snapshot.data}');
+                          return Text(
+                              'Box No: ${component.boxNo}\nStock: ${snapshot.data}');
                         }
                       },
                     ),
                     onTap: () {
-                      Get.to(() => ComponentInClassScreen(component: component));
+                      Get.to(
+                          () => ComponentInClassScreen(component: component));
                     },
                   ),
                 );
