@@ -12,6 +12,7 @@ import 'package:inventory/src/features/main_app/thankyou.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:convert'; 
+import 'package:uuid/uuid.dart';
 
 class Cartscreen extends StatefulWidget {
   const Cartscreen({super.key});
@@ -37,6 +38,8 @@ class _CartscreenState extends State<Cartscreen> {
   var day;
 
   var month;
+
+  final uuid=Uuid().v4();
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -118,6 +121,7 @@ class _CartscreenState extends State<Cartscreen> {
       String name,
       String className,
       String phonenumber,
+  
       List<Cartcomponent> cartcomponents) async {
     List<Map<String, dynamic>> cartcomponentsJson =
         cartcomponents.map((co) => co.toJson()).toList();
@@ -131,24 +135,26 @@ class _CartscreenState extends State<Cartscreen> {
       'issuedby': emailcontroller.Namefrommail.value,
       'status': 'Issued',
       'issuedate': Dateformater(),
-      'returndate': 'soon'
+      'returndate': 'soon',
+      'transaction_id':uuid
+    
     };
 
     try {
       // Check if the record exists
-      final existingRecord = await supabase
-          .from('Transactions')
-          .select()
-          .eq('id', memberid)
-          .single();
+      // final existingRecord = await supabase
+      //     .from('Transactions')
+      //     .select()
+      //     .eq('transaction_id', uuid)
+      //     .single();
+           await supabase.from('Transactions').insert(data);
 
-      if (existingRecord != null) {
-        // If record exists, update it
-        await supabase.from('Transactions').update(data).eq('id', memberid);
-      } else {
-        // If record does not exist, insert new record
-        await supabase.from('Transactions').insert(data);
-      }
+      // if (existingRecord != null) {
+      //   // If record exists, update it
+      //   await supabase.from('Transactions').update(data).eq('transaction_id', uuid);
+      // } else {
+      //   // If record does not exist, insert new record
+      // }
     } catch (e) {
       // Handle any errors that occur
       print('Error inserting/updating record: $e');
