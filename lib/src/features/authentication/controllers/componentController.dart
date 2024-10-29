@@ -20,6 +20,7 @@ class ComponentController extends GetxController {
   TextEditingController boxnocontroller = TextEditingController();
   RxList<Component> Classcomponents = <Component>[].obs;
   RxString title = ''.obs;
+  RxString transactionid=''.obs;
 
   @override
   void onInit() {

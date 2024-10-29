@@ -100,20 +100,25 @@ class _CartscreenState extends State<Cartscreen> {
     final stockvalue = tablestock[0]['stock'] as int;
     final finalstock = stockvalue + component.Quantity;
 
+     print('transaction id:');
+     print(componentcontroller.transactionid.value);
+
     await supabase
         .from(componentcontroller.ClassName.value)
         .update({'stock': finalstock}).eq('skuid', component.skuid);
 
     await supabase
         .from('Transactions')
-        .update({'status': 'Returned'}).eq('id', Memberid.text);
+        .update({'status': 'Returned'}).eq('transaction_id', componentcontroller.transactionid.value);
 
     await supabase.from('Transactions').update({
       'returndate': Dateformater(),
-    }).eq('id', Memberid.text);
+    }).eq('transaction_id', componentcontroller.transactionid.value);
 
     thankyoucontroller.ThankyouStatus.value =
         'Successfully returned and re-added to the Inventory';
+
+       
   }
 
   Future<void> insertCartComponents(

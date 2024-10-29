@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class fetcheddata{
@@ -8,9 +10,9 @@ class fetcheddata{
  List<dynamic> packageitems;
  String issueDate;
  String? ReturnDate;
- 
+ String transaction_id;
 
- fetcheddata({required this.MemberName,required this.packageitems,required this.issueDate,required this.ReturnDate});
+ fetcheddata({required this.MemberName,required this.packageitems,required this.issueDate,required this.ReturnDate,required this.transaction_id});
 
 
 }
@@ -24,7 +26,8 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   final supabase = Supabase.instance.client;
-
+ final ComponentController componentcontroller =
+      Get.put(ComponentController());
   List<fetcheddata> fetchedlist = [];
 
   void fetchpackage() async {
@@ -35,7 +38,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
          print(item['package']);
         fetchedlist.add(
-          fetcheddata(MemberName: item['name'], packageitems: item['package'], issueDate: item['issuedate'],ReturnDate: item['returndate'])
+          fetcheddata(MemberName: item['name'], packageitems: item['package'], issueDate: item['issuedate'],ReturnDate: item['returndate'],transaction_id: item['transaction_id'])
           
         );
         
@@ -91,7 +94,7 @@ class _MenuScreenState extends State<MenuScreen> {
          padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 10),                  child: Container(
                          width: MediaQuery.of(context).size.width * 0.8,
-                              height: MediaQuery.of(context).size.width * 0.45,
+                              height: MediaQuery.of(context).size.width * 0.6,
                               decoration: BoxDecoration(
                                   color: Color.fromARGB(39, 5, 168, 244),
                                   borderRadius: BorderRadius.all(
@@ -124,7 +127,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                         child: Text(
                                          'Issued On:${fetcedcomp.issueDate}',
                                           style: GoogleFonts.lato(
-                                              color: Colors.black, fontSize: 20),
+                                              color: Colors.black, fontSize: 17),
                                         ),
                                       ),
                                         Padding(
@@ -134,7 +137,17 @@ class _MenuScreenState extends State<MenuScreen> {
                                          'Returned On:${fetcedcomp.ReturnDate??'Not Returned'}',
 
                                           style: GoogleFonts.lato(
-                                              color: Colors.black, fontSize: 20),
+                                              color: Colors.black, fontSize: 17),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 10),
+                                        child: Text(
+                                         'Transaction Id:${fetcedcomp.transaction_id}',
+
+                                          style: GoogleFonts.lato(
+                                              color: Colors.black, fontSize: 17),
                                         ),
                                       ),
                                     ],

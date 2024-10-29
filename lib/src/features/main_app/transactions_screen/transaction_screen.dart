@@ -18,9 +18,12 @@ class _TransactionScreenState extends State<TransactionScreen> {
   String _scanBarcode = 'Unknown';
   late String barcode;
   late String compname = '';
+  bool returnstate=false;
 
   final ComponentController componentcontroller =
       Get.put(ComponentController());
+
+      final transactionidcontroller=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +102,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
                TextButton(
                 onPressed: () async {
+                   returnstate=true;
                   componentcontroller.Status.value='Returned';
                   componentcontroller.returnorissue.value=true;
                   String barcodeScanRes;
@@ -255,11 +259,32 @@ shrinkWrap: true, // Add this
                       );
                     }),
               ),
+                 Text(
+                      "Transaction Id:",
+                      style: GoogleFonts.lato(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: const Color.fromARGB(255, 3, 38, 66)),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(right: 30,left: 30),
+                        child: TextField(
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          controller: transactionidcontroller,
+                          decoration: InputDecoration(
+                            hintText: "Enter transaction id",
+                          ),
+                        )),
               SizedBox(
                 height: 20,
               ),
               TextButton(
                 onPressed: () {
+                
+                  componentcontroller.transactionid.value=transactionidcontroller.text;
+                    transactionidcontroller.clear();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Cartscreen()));
                 },
