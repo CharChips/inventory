@@ -17,6 +17,11 @@ class Emailcontroller extends GetxController {
     '2022.gautam.singh@ves.ac.in',
     'd2023.aniket.pandhari@ves.ac.in',
     'Sinhaaakarsh0@gmail.com',
+    '2023.ronit.chugwani@ves.ac.in',
+    '2023.paayal.kapoor@ves.ac.in',
+    '2023.nidhi.bamhane@ves.ac.in',
+    '2023.krishnan.h@ves.ac.in',
+    '2023.akshay.nambiar@ves.ac.in'
   ];
 
   final Map<String, String> emailToName = {
@@ -29,6 +34,11 @@ class Emailcontroller extends GetxController {
     '2022.gautam.singh@ves.ac.in': 'Gautam Singh',
     'd2023.aniket.pandhari@ves.ac.in': 'Aniket Pandhari',
     'Sinhaaakarsh0@gmail.com': 'Aakarsh SInha',
+    '2023.ronit.chugwani@ves.ac.in': 'Ronit Chugwani',
+    '2023.paayal.kapoor@ves.ac.in': 'Paayal Kapoor',
+    '2023.nidhi.bamhane@ves.ac.in': 'Nidhi Bamhane',
+    '2023.krishnan.h@ves.ac.in': 'Krishnan H',
+    '2023.akshay.nambiar@ves.ac.in': 'Akshay Nambiar'
   };
 
   void mailchecker() {
