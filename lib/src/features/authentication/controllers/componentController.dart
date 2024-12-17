@@ -261,31 +261,55 @@ class ComponentController extends GetxController {
         Boxname.value = 'CM-01';
       }
     } else if (RegExp(r'^AC').hasMatch(elem)) {
-      ClassName.value = 'Actuators and Motors';
-      if (RegExp(r'AC-SERVO-MTR').hasMatch(elem)) {
+      ClassName.value = 'Actuators and Motors'; 
+      if (RegExp(r'AC-SERVO-MTR').hasMatch(elem)) { //check
         CompName.value = 'Servo motors';
         Boxname.value = 'AC-01';
       } else if (RegExp(r'AC-L9110-DRV').hasMatch(elem)) {
         CompName.value = 'L9110 Motor drive';
-        Boxname.value = 'AC-01';
+        Boxname.value = 'AC-04';
       } else if (RegExp(r'AC-GEAR-MTR-DRV').hasMatch(elem)) {
-        CompName.value = 'Gear Motor Driver';
-        Boxname.value = 'AC-01';
+        CompName.value = 'Gear Motor Driver 5V';
+        Boxname.value = 'AC-02';
       } else if (RegExp(r'AC-SLND-LCK').hasMatch(elem)) {
         CompName.value = 'Solenoid Lock';
-        Boxname.value = 'AC-01';
+        Boxname.value = 'AC-06';
       } else if (RegExp(r'AC-RLY-MOD1').hasMatch(elem)) {
         CompName.value = 'Relay module';
-        Boxname.value = 'AC-01';
+        Boxname.value = 'AC-06';
       } else if (RegExp(r'AC-RLY-MOD2').hasMatch(elem)) {
         CompName.value = 'Relay module';
         Boxname.value = 'AC-01';
       } else if (RegExp(r'AC-RLY-SSR').hasMatch(elem)) {
         CompName.value = 'Solid state Relay';
         Boxname.value = 'AC-01';
+      } else if (RegExp(r'AC-MTR-5V').hasMatch(elem)) {
+        CompName.value = '5V Motor';
+        Boxname.value = 'AC-01';
+      } else if (RegExp(r'AC-MTR-612V').hasMatch(elem)) {
+        CompName.value = '5-12V Motor';
+        Boxname.value = 'AC-01';
       } else if (RegExp(r'AC-MTR-N20').hasMatch(elem)) {
         CompName.value = 'N20 Encoded DC Motor';
+        Boxname.value = 'AC-02';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'X5C-1 (unbalanced motor)';
         Boxname.value = 'AC-01';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'MG-90';
+        Boxname.value = 'AC-05';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'L293 motor driver';
+        Boxname.value = 'AC-03';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'MG-95';
+        Boxname.value = 'AC-05';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'motor driver heads';
+        Boxname.value = 'AC-07';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'Solenoid Pump';
+        Boxname.value = '';
       }
     } else if (RegExp(r'^DI').hasMatch(elem)) {
       ClassName.value = 'Displays and Indicators';
@@ -318,16 +342,34 @@ class ComponentController extends GetxController {
         Boxname.value = 'DI-01';
       } else if (RegExp(r'DI-I2C-MOD').hasMatch(elem)) {
         CompName.value = 'I2C MODULE';
-        Boxname.value = 'DI-01';
+        Boxname.value = 'DI-02';
       } else if (RegExp(r'DI-LCD-SH').hasMatch(elem)) {
         CompName.value = 'LCD with sheild';
-        Boxname.value = 'DI-01';
+        Boxname.value = 'DI-02';
       } else if (RegExp(r'DI-LCD-16').hasMatch(elem)) {
         CompName.value = 'LCD 16X2';
-        Boxname.value = 'DI-01';
+        Boxname.value = 'DI-02';
       } else if (RegExp(r'DI-LCD-20').hasMatch(elem)) {
         CompName.value = 'LCD 20 x 4';
+        Boxname.value = 'DI-02';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'BYD4512B812246(i.45 in OLED)';
         Boxname.value = 'DI-01';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = '4 digit 7 segment';
+        Boxname.value = 'DI-01';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'RF ID cards';
+        Boxname.value = '';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'Digital Oscilloscope';
+        Boxname.value = '';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'webcam';
+        Boxname.value = '';
+      } else if (RegExp(r'').hasMatch(elem)) {
+        CompName.value = 'LCD 3.5 INCH';
+        Boxname.value = 'DI';
       }
     } else if (RegExp(r'^AM').hasMatch(elem)) {
       ClassName.value = 'Audio Modules';
@@ -619,7 +661,7 @@ class ComponentController extends GetxController {
       }
     }
   }
-
+ 
   void reset() {
     Skuid.value = '';
     CompName.value = '';
