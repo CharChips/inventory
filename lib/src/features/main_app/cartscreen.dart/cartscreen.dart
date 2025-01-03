@@ -11,7 +11,7 @@ import 'package:inventory/src/features/authentication/controllers/thankyoucontro
 import 'package:inventory/src/features/main_app/thankyou.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'dart:convert'; 
+import 'dart:convert';
 import 'package:uuid/uuid.dart';
 
 class Cartscreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _CartscreenState extends State<Cartscreen> {
 
   var month;
 
-  final uuid=Uuid().v4();
+  final uuid = Uuid().v4();
 
   Future<void> updateQuantity(Cartcomponent component) async {
     componentcontroller.skuidanalyze(component.skuid);
@@ -100,16 +100,15 @@ class _CartscreenState extends State<Cartscreen> {
     final stockvalue = tablestock[0]['stock'] as int;
     final finalstock = stockvalue + component.Quantity;
 
-     print('transaction id:');
-     print(componentcontroller.transactionid.value);
+    print('transaction id:');
+    print(componentcontroller.transactionid.value);
 
     await supabase
         .from(componentcontroller.ClassName.value)
         .update({'stock': finalstock}).eq('skuid', component.skuid);
 
-    await supabase
-        .from('Transactions')
-        .update({'status': 'Returned'}).eq('transaction_id', componentcontroller.transactionid.value);
+    await supabase.from('Transactions').update({'status': 'Returned'}).eq(
+        'transaction_id', componentcontroller.transactionid.value);
 
     await supabase.from('Transactions').update({
       'returndate': Dateformater(),
@@ -117,8 +116,6 @@ class _CartscreenState extends State<Cartscreen> {
 
     thankyoucontroller.ThankyouStatus.value =
         'Successfully returned and re-added to the Inventory';
-
-       
   }
 
   Future<void> insertCartComponents(
@@ -126,7 +123,6 @@ class _CartscreenState extends State<Cartscreen> {
       String name,
       String className,
       String phonenumber,
-  
       List<Cartcomponent> cartcomponents) async {
     List<Map<String, dynamic>> cartcomponentsJson =
         cartcomponents.map((co) => co.toJson()).toList();
@@ -141,8 +137,7 @@ class _CartscreenState extends State<Cartscreen> {
       'status': 'Issued',
       'issuedate': Dateformater(),
       'returndate': 'soon',
-      'transaction_id':uuid
-    
+      'transaction_id': uuid
     };
 
     try {
@@ -152,7 +147,7 @@ class _CartscreenState extends State<Cartscreen> {
       //     .select()
       //     .eq('transaction_id', uuid)
       //     .single();
-           await supabase.from('Transactions').insert(data);
+      await supabase.from('Transactions').insert(data);
 
       // if (existingRecord != null) {
       //   // If record exists, update it
@@ -183,21 +178,19 @@ class _CartscreenState extends State<Cartscreen> {
     controller.scannedDataStream.listen((scanData) {
       if (scanData.code != null) {
         setState(() {
-        
           Map<String, dynamic> scannedData = jsonDecode(scanData.code!);
 
           Memberid.text = scannedData['member_id'] ?? '';
           Name.text = scannedData['name'] ?? '';
-          Class.text = scannedData['division'] ?? ''; 
+          Class.text = scannedData['division'] ?? '';
+          PhoneNumber.text = scannedData['phone_number'] ?? '';
         });
       }
 
-      controller.pauseCamera(); 
+      controller.pauseCamera();
       Navigator.of(context).pop();
     });
   }
-
-
 
   void _scanQRCode() {
     controller?.resumeCamera();
@@ -283,7 +276,6 @@ class _CartscreenState extends State<Cartscreen> {
                                             const Icon(Icons.qr_code_scanner))),
                               )),
                         ),
-                        
                       ],
                     ),
                     SizedBox(

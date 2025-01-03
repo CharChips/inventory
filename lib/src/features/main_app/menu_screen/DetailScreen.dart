@@ -24,17 +24,21 @@ class DetailScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () => {
-                showDialog(context: context, builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('Member Details'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          Text('Class: ${fetchedcomp.div}'),
-                          Text('Phone Number: ${fetchedcomp.phonenumber}'),
-                        ],
-                      ),
-                    ),);})
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Member Details'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text('Class: ${fetchedcomp.div}'),
+                              Text('Phone Number: ${fetchedcomp.phonenumber}'),
+                            ],
+                          ),
+                        ),
+                      );
+                    })
               },
               child: Text(
                 'Member: ${fetchedcomp.MemberName}',
