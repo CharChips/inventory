@@ -22,10 +22,25 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Member: ${fetchedcomp.MemberName}',
-              style:
-                  GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () => {
+                showDialog(context: context, builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Member Details'),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text('Class: ${fetchedcomp.div}'),
+                          Text('Phone Number: ${fetchedcomp.phonenumber}'),
+                        ],
+                      ),
+                    ),);})
+              },
+              child: Text(
+                'Member: ${fetchedcomp.MemberName}',
+                style:
+                    GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: 16),
             Text(
