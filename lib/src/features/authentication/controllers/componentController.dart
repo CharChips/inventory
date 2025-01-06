@@ -20,7 +20,7 @@ class ComponentController extends GetxController {
   TextEditingController boxnocontroller = TextEditingController();
   RxList<Component> Classcomponents = <Component>[].obs;
   RxString title = ''.obs;
-  RxString transactionid=''.obs;
+  RxString transactionid = ''.obs;
 
   @override
   void onInit() {
@@ -40,7 +40,47 @@ class ComponentController extends GetxController {
   void skuidanalyze(String elem) {
     if (RegExp(r'^MC').hasMatch(elem)) {
       ClassName.value = 'Microcontroller';
-      if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
+      
+      if (RegExp(r'RASP-3B').hasMatch(elem)) {
+        CompName.value = 'Raspberry Pie 3b';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'RASP-4B').hasMatch(elem)) {
+        CompName.value = 'Raspberry Pie 4b';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'RASPI-0').hasMatch(elem)) {
+        CompName.value = 'Raspberry Pie zero';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'RASP-PICO').hasMatch(elem)) {
+        CompName.value = 'Raspberry pie pico';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'RASPI-CAM').hasMatch(elem)) {
+        CompName.value = 'Raspberry CAM';
+        Boxname.value = 'MC-04';
+      } else if (RegExp(r'ESP32-DEV').hasMatch(elem)) {
+        CompName.value = 'ESP32 dev kit';
+        Boxname.value = 'MC-05/MC-02';
+      } else if (RegExp(r'ESP-32').hasMatch(elem)) {
+        CompName.value = 'ESP-32';
+        Boxname.value = 'MC-02';
+      } else if (RegExp(r'ESP-NMCU').hasMatch(elem)) {
+        CompName.value = 'ESP8266 (NODEMCU)';
+        Boxname.value = 'MC-02';
+      } else if (RegExp(r'ESP-CAM').hasMatch(elem)) {
+        CompName.value = 'ESP CAMERA';
+        Boxname.value = 'MC-02';
+      } else if (RegExp(r'STM-32').hasMatch(elem)) {
+        CompName.value = 'STM-32F401';
+        Boxname.value = 'MC-04';
+      } else if (RegExp(r'ARD-UNO').hasMatch(elem)) {
+        CompName.value = 'ARDUINO UNO';
+        Boxname.value = 'MC-01'; 
+      } else if (RegExp(r'IOS').hasMatch(elem)) {
+        CompName.value = 'IO Shield';
+        Boxname.value = 'MC-05'; 
+      } else if (RegExp(r'ARD-NANO').hasMatch(elem)) {
+        CompName.value = 'Arduino Nano';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
         CompName.value = 'ATMEGA32';
         Boxname.value = 'MC-01';
       } else if (RegExp(r'AT-MEGA8').hasMatch(elem)) {
@@ -58,24 +98,6 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'PIC16F877A').hasMatch(elem)) {
         CompName.value = 'PIC16F877A AND DS13020538A5';
         Boxname.value = 'MC-03';
-      } else if (RegExp(r'ESP32-DEV').hasMatch(elem)) {
-        CompName.value = 'esp32_dev kit_V1_green board';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'RASP-3B').hasMatch(elem)) {
-        CompName.value = 'Raspberry Pie 3b';
-        Boxname.value = 'MC-01';
-      } else if (RegExp(r'RASP-4B').hasMatch(elem)) {
-        CompName.value = 'Raspberry Pie 4b';
-        Boxname.value = 'MC-01';
-      } else if (RegExp(r'RASP-PICO').hasMatch(elem)) {
-        CompName.value = 'Raspberry pie pico';
-        Boxname.value = 'MC-01';
-      } else if (RegExp(r'ARD-UNO').hasMatch(elem)) {
-        CompName.value = 'ARDUINO UNO';
-        Boxname.value = 'MC-02';
-      } else if (RegExp(r'STM-32').hasMatch(elem)) {
-        CompName.value = 'STM-32F';
-        Boxname.value = 'MC-01';
       } else if (RegExp(r'89E516-RD').hasMatch(elem)) {
         CompName.value = '89E516RD';
         Boxname.value = 'MC-03';
@@ -97,18 +119,21 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'PIC18F 887A').hasMatch(elem)) {
         CompName.value = 'PIC16F887A';
         Boxname.value = 'MC-03';
-      } else if (RegExp(r'ARD-NANO').hasMatch(elem)) {
-        CompName.value = 'Arduino Nano';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'ESP-NMCU').hasMatch(elem)) {
-        CompName.value = 'ESP8266 (NODEMCU)';
-        Boxname.value = 'MC-02';
       } else if (RegExp(r'ARD-ENC').hasMatch(elem)) {
         CompName.value = 'Arduino ENC28J60 (Ethernet)';
         Boxname.value = 'CM-03';
-      } else if (RegExp(r'MC-ARD-PMINI').hasMatch(elem)) {
+      } else if (RegExp(r'ARD-PMINI').hasMatch(elem)) {
         CompName.value = 'arduino pro mini';
         Boxname.value = 'CM-02';
+      } else if (RegExp(r'ARD-MEGA').hasMatch(elem)) {
+        CompName.value = 'Arduino Mega';
+        Boxname.value = 'MC-01';
+      } else if (RegExp(r'STMST-LINKV2').hasMatch(elem)) {
+        CompName.value = 'STMST-LINKV2';
+        Boxname.value = 'MC-04';
+      } else if (RegExp(r'FPGA-PBO').hasMatch(elem)) {
+        CompName.value = 'Boolean Board';
+        Boxname.value = 'MC-06';
       }
     } else if (RegExp(r'^SN').hasMatch(elem)) {
       ClassName.value = 'Sensors';
@@ -261,8 +286,9 @@ class ComponentController extends GetxController {
         Boxname.value = 'CM-01';
       }
     } else if (RegExp(r'^AC').hasMatch(elem)) {
-      ClassName.value = 'Actuators and Motors'; 
-      if (RegExp(r'AC-SERVO-MTR').hasMatch(elem)) { //check
+      ClassName.value = 'Actuators and Motors';
+      if (RegExp(r'AC-SERVO-MTR').hasMatch(elem)) {
+        //check
         CompName.value = 'Servo motors';
         Boxname.value = 'AC-01';
       } else if (RegExp(r'AC-L9110-DRV').hasMatch(elem)) {
@@ -661,7 +687,7 @@ class ComponentController extends GetxController {
       }
     }
   }
- 
+
   void reset() {
     Skuid.value = '';
     CompName.value = '';
