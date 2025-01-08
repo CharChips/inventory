@@ -19,7 +19,8 @@ class _NewentryState extends State<Newentry> {
       Get.put(ComponentController());
   final supabase = Supabase.instance.client;
   final TextEditingController boxnocontroller = TextEditingController();
-    final TextEditingController stockcontroller = TextEditingController();
+  final TextEditingController stockcontroller = TextEditingController();
+  final TextEditingController warningcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +151,7 @@ class _NewentryState extends State<Newentry> {
               ),
             ),
           ),
-           Padding(
+          Padding(
             padding: const EdgeInsets.all(25.0),
             child: Container(
               width: 120,
@@ -177,6 +178,30 @@ class _NewentryState extends State<Newentry> {
           ),
         ],
       ),
+      Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Color.fromARGB(255, 4, 13, 56)),
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          child: TextFormField(
+            controller: warningcontroller,
+            maxLines: 6,
+            minLines: 1,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text(
+                "Warning",
+                style: GoogleFonts.lato(
+                    textStyle: TextStyle(
+                        color: const Color.fromARGB(255, 136, 136, 136))),
+              ),
+            ),
+          ),
+        ),
+      ),
       SizedBox(
         height: 40,
       ),
@@ -187,8 +212,8 @@ class _NewentryState extends State<Newentry> {
               'skuid': barcodecontroller.text,
               'name': componentcontroller.CompName.value,
               'boxno': componentcontroller.Boxname.value,
-              'stock':stockcontroller.text
-
+              'stock': stockcontroller.text,
+              'warning': warningcontroller.text
             });
           },
           child: Container(
@@ -204,16 +229,17 @@ class _NewentryState extends State<Newentry> {
       SizedBox(height: 40),
       TextButton(
         onPressed: () async {
-            print(barcodecontroller.text);
+          print(barcodecontroller.text);
           print(componentcontroller.CompName.value);
           print(componentcontroller.boxnocontroller.value);
           await supabase.from(componentcontroller.ClassName.value).insert({
             'skuid': barcodecontroller.text,
             'name': componentcontroller.CompName.value,
             'boxno': componentcontroller.Boxname.value,
-            'stock':stockcontroller.text
+            'stock': stockcontroller.text,
+            'warning': warningcontroller.text
           });
-        
+
           Navigator.of(context).pop();
         },
         child: Container(
