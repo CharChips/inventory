@@ -8,6 +8,7 @@ import 'package:inventory/src/features/main_app/add_component/add_component_bott
 import 'package:inventory/src/features/main_app/add_component/cons_or%20noncons.dart';
 import 'package:inventory/src/features/main_app/dashboard/dashboard_screen.dart';
 import 'package:inventory/src/features/main_app/menu_screen/menu_Screen.dart';
+import 'package:inventory/src/features/main_app/search_screen/first_screen.dart';
 import 'package:inventory/src/features/main_app/search_screen/search_screen.dart';
 import 'package:inventory/src/features/main_app/transactions_screen/transaction_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,9 +16,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  static  List<Widget> _screenOptions = <Widget>[
+  static List<Widget> _screenOptions = <Widget>[
     Dashboard(),
-    SearchScreen(),
+    // SearchScreen(),
+    FirstScreen(),
     TransactionScreen(),
     MenuScreen()
   ];
@@ -67,12 +69,9 @@ class _DashboardState extends State<MainScreen> {
       body: Center(
         child: MainScreen._screenOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar:
-      
-       CustomBottomNavigationBar(
+      bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: _selectedIndex >= 2 ? _selectedIndex + 1 : _selectedIndex,
         onTap: _onItemTapped,
-
       ),
     );
   }

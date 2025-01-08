@@ -72,6 +72,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Component Search'),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -108,7 +111,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         margin: const EdgeInsets.symmetric(vertical: 5),
                         child: ListTile(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ComponentInClassScreen(component: component)));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ComponentInClassScreen(
+                                    component: component)));
                           },
                           title: Text(
                             component.name,
