@@ -38,9 +38,11 @@ class ComponentController extends GetxController {
   }
 
   void skuidanalyze(String elem) {
+    print('Analyzing SKUID: $elem');
     if (RegExp(r'^MC').hasMatch(elem)) {
       ClassName.value = 'Microcontroller';
-      
+      print('ClassName set to: ${ClassName.value}');
+
       if (RegExp(r'RASP-3B').hasMatch(elem)) {
         CompName.value = 'Raspberry Pie 3b';
         Boxname.value = 'MC-03';
@@ -73,10 +75,10 @@ class ComponentController extends GetxController {
         Boxname.value = 'MC-04';
       } else if (RegExp(r'ARD-UNO').hasMatch(elem)) {
         CompName.value = 'ARDUINO UNO';
-        Boxname.value = 'MC-01'; 
+        Boxname.value = 'MC-01';
       } else if (RegExp(r'IOS').hasMatch(elem)) {
         CompName.value = 'IO Shield';
-        Boxname.value = 'MC-05'; 
+        Boxname.value = 'MC-05';
       } else if (RegExp(r'ARD-NANO').hasMatch(elem)) {
         CompName.value = 'Arduino Nano';
         Boxname.value = 'MC-03';
@@ -694,6 +696,11 @@ class ComponentController extends GetxController {
     Boxname.value = '';
     namecontroller.clear();
     boxnocontroller.clear();
+  }
+
+  // Method to check if stock is available
+  bool isStockAvailable() {
+    return Quantity.value > 0;
   }
 
   // void QuantityAnalyzer(){

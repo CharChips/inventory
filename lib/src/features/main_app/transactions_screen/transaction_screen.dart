@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/features/authentication/controllers/componentController.dart';
 import 'package:inventory/src/features/main_app/cartscreen.dart/cartscreen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({super.key});
@@ -18,12 +19,114 @@ class _TransactionScreenState extends State<TransactionScreen> {
   String _scanBarcode = 'Unknown';
   late String barcode;
   late String compname = '';
-  bool returnstate=false;
+  bool returnstate = false;
 
   final ComponentController componentcontroller =
       Get.put(ComponentController());
 
-      final transactionidcontroller=TextEditingController();
+  final transactionidcontroller = TextEditingController();
+  final returnTransactionIdController = TextEditingController();
+
+  Future<bool> checkStockAvailability(String skuid) async {
+    try {
+      print('Checking stock in table: ${componentcontroller.ClassName.value}');
+      print('Checking for SKUID: $skuid');
+
+      if (componentcontroller.ClassName.value.isEmpty) {
+        print('Table name is not set!');
+        return false;
+      }
+
+      final response = await Supabase.instance.client
+          .from(componentcontroller.ClassName.value)
+          .select()
+          .eq('skuid', skuid)
+          .maybeSingle();
+
+      print('Full response from Supabase: $response');
+
+      if (response != null) {
+        var stockValue = response['stock'];
+        print('Raw stock value: $stockValue');
+
+        int currentStock = 0;
+
+        if (stockValue != null) {
+          if (stockValue is String) {
+            currentStock = int.parse(stockValue);
+          } else if (stockValue is num) {
+            currentStock = stockValue.toInt();
+          }
+        }
+
+        print('Parsed stock value: $currentStock');
+        return currentStock > 0;
+      } else {
+        print('No stock found for SKUID: $skuid');
+        return false;
+      }
+    } catch (e) {
+      print('Error checking stock: $e');
+      return false;
+    }
+  }
+
+  Future<void> fetchTransactionComponents(String transactionId) async {
+    if (transactionId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please enter a valid transaction ID')),
+      );
+      return;
+    }
+
+    try {
+      final response = await Supabase.instance.client
+          .from('Transactions')
+          .select()
+          .eq('transaction_id', transactionId)
+          .single();
+
+      if (response != null) {
+        // Check if the transaction is already returned
+        if (response['status'] == 'Returned') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text('This transaction has already been returned')),
+          );
+          return;
+        }
+
+        // Set the transaction ID in the controller
+        componentcontroller.transactionid.value =
+            returnTransactionIdController.text;
+
+        // Clear existing cart components
+        componentcontroller.Cartcomponents.clear();
+
+        // Parse the package JSON array
+        List<dynamic> components = response['package'];
+
+        // Add each component to the cart
+        for (var comp in components) {
+          componentcontroller.Cartcomponents.add(Cartcomponent(
+            compname: comp['compname'],
+            skuid: comp['skuid'],
+            Quantity: comp['Quantity'],
+          ));
+        }
+        setState(() {
+          returnstate = true;
+          componentcontroller.Status.value = 'Returned';
+          componentcontroller.returnorissue.value = true;
+        });
+      }
+    } catch (e) {
+      print('Error fetching transaction: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Transaction not found or error occurred')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,34 +151,56 @@ class _TransactionScreenState extends State<TransactionScreen> {
             children: [
               TextButton(
                 onPressed: () async {
-                  componentcontroller.Status.value='Issued';
-                  componentcontroller.returnorissue.value=false;
-
-
+                  // Proceed with barcode scanning
                   String barcodeScanRes;
-                  // Platform messages may fail, so we use a try/catch PlatformException.
                   try {
                     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
                         '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-                    print(barcodeScanRes);
+                    print('Scanned barcode: $barcodeScanRes');
                   } on PlatformException {
                     barcodeScanRes = 'Failed to get platform version.';
                   }
 
-                  // If the widget was removed from the tree while the asynchronous platform
-                  // message was in flight, we want to discard the reply rather than calling
-                  // setState to update our non-existent appearance.
                   if (!mounted) return;
 
                   setState(() {
                     _scanBarcode = barcodeScanRes;
                     barcode = _scanBarcode;
-                    componentcontroller.skuidanalyze(barcode);
-                    componentcontroller.Cartcomponents.add(Cartcomponent(
-                        compname: componentcontroller.CompName.value,
-                        skuid: barcode,
-                        Quantity: componentcontroller.Quantity.value));
                   });
+
+                  // Only proceed if we got a valid barcode
+                  if (barcodeScanRes != '-1' &&
+                      barcodeScanRes != 'Failed to get platform version.') {
+                    // Analyze the SKUID to set ClassName, CompName, and Boxname
+                    componentcontroller.skuidanalyze(barcode);
+
+                    // Debug: Print the ClassName after analyzing the SKUID
+                    print(
+                        'ClassName after skuidanalyze: ${componentcontroller.ClassName.value}');
+
+                    // Check stock availability before proceeding
+                    bool hasStock = await checkStockAvailability(barcode);
+                    print('Has stock: $hasStock');
+
+                    if (!hasStock) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('No stock available for this component'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+
+                    // If stock is available, proceed with adding to cart
+                    setState(() {
+                      componentcontroller.Cartcomponents.add(Cartcomponent(
+                          compname: componentcontroller.CompName.value,
+                          skuid: barcode,
+                          Quantity: componentcontroller.Quantity.value));
+                    });
+                  }
                 },
                 child: Container(
                   width: 300,
@@ -100,35 +225,45 @@ class _TransactionScreenState extends State<TransactionScreen> {
               SizedBox(
                 height: 5,
               ),
-               TextButton(
-                onPressed: () async {
-                   returnstate=true;
-                  componentcontroller.Status.value='Returned';
-                  componentcontroller.returnorissue.value=true;
-                  String barcodeScanRes;
-                  // Platform messages may fail, so we use a try/catch PlatformException.
-                  try {
-                    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-                        '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-                    print(barcodeScanRes);
-                  } on PlatformException {
-                    barcodeScanRes = 'Failed to get platform version.';
-                  }
-
-                  // If the widget was removed from the tree while the asynchronous platform
-                  // message was in flight, we want to discard the reply rather than calling
-                  // setState to update our non-existent appearance.
-                  if (!mounted) return;
-
-                  setState(() {
-                    _scanBarcode = barcodeScanRes;
-                    barcode = _scanBarcode;
-                    componentcontroller.skuidanalyze(barcode);
-                    componentcontroller.Cartcomponents.add(Cartcomponent(
-                        compname: componentcontroller.CompName.value,
-                        skuid: barcode,
-                        Quantity: componentcontroller.Quantity.value));
-                  });
+              TextButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Enter Transaction ID'),
+                        content: TextField(
+                          controller: returnTransactionIdController,
+                          decoration: InputDecoration(
+                            hintText: 'Transaction ID',
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              print(
+                                  'Transaction ID from dialog: ${returnTransactionIdController.text}');
+                              componentcontroller.transactionid.value =
+                                  returnTransactionIdController.text;
+                              print(
+                                  'Transaction ID from controller: ${componentcontroller.transactionid.value}');
+                              await fetchTransactionComponents(
+                                  returnTransactionIdController.text);
+                              Navigator.pop(context);
+                              returnTransactionIdController.clear();
+                            },
+                            child: Text('Submit'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: Container(
                   width: 300,
@@ -139,7 +274,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                   padding: EdgeInsets.symmetric(vertical: 12),
                   alignment: Alignment.center,
                   child: Text(
-                    'Scan to return component',
+                    'Enter Return Transaction ID',
                     style: GoogleFonts.lato(
                       textStyle: TextStyle(
                         color: Colors.white,
@@ -155,7 +290,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-shrinkWrap: true, // Add this                    
+                    shrinkWrap: true, // Add this
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: componentcontroller.Cartcomponents.length,
                     itemBuilder: (ctx, index) {
@@ -259,32 +394,13 @@ shrinkWrap: true, // Add this
                       );
                     }),
               ),
-                 Text(
-                      "Transaction Id:",
-                      style: GoogleFonts.lato(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 3, 38, 66)),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(right: 30,left: 30),
-                        child: TextField(
-                          style: const TextStyle(
-                            color: Colors.black,
-                          ),
-                          controller: transactionidcontroller,
-                          decoration: InputDecoration(
-                            hintText: "Enter transaction id",
-                          ),
-                        )),
               SizedBox(
                 height: 20,
               ),
               TextButton(
                 onPressed: () {
-                
-                  componentcontroller.transactionid.value=transactionidcontroller.text;
-                    transactionidcontroller.clear();
+                  print(
+                      'Navigating with Transaction ID: ${componentcontroller.transactionid.value}');
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Cartscreen()));
                 },

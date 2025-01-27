@@ -10,7 +10,4 @@ class CAppTheme {
           headlineLarge: GoogleFonts.montserrat(
         color: Colors.black87,
       )));
-  static ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-  );
 }

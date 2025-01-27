@@ -97,12 +97,17 @@ class _CartscreenState extends State<Cartscreen> {
         .from(componentcontroller.ClassName.value)
         .select('stock')
         .eq('skuid', component.skuid);
+
+    if (tablestock.isEmpty) {
+      print('No stock found for SKUID: ${component.skuid}');
+      return;
+    }
+
     final stockvalue = tablestock[0]['stock'] as int;
     final finalstock = stockvalue + component.Quantity;
 
     print('transaction id:');
     print(componentcontroller.transactionid.value);
-
     await supabase
         .from(componentcontroller.ClassName.value)
         .update({'stock': finalstock}).eq('skuid', component.skuid);
@@ -134,29 +139,16 @@ class _CartscreenState extends State<Cartscreen> {
       'phonenumber': phonenumber,
       'package': cartcomponentsJson,
       'issuedby': emailcontroller.Namefrommail.value,
-      'status': 'Issued',
+      'status': componentcontroller.returnorissue.value ? 'Returned' : 'Issued',
       'issuedate': Dateformater(),
-      'returndate': 'soon',
+      'returndate':
+          componentcontroller.returnorissue.value ? Dateformater() : 'soon',
       'transaction_id': uuid
     };
 
     try {
-      // Check if the record exists
-      // final existingRecord = await supabase
-      //     .from('Transactions')
-      //     .select()
-      //     .eq('transaction_id', uuid)
-      //     .single();
       await supabase.from('Transactions').insert(data);
-
-      // if (existingRecord != null) {
-      //   // If record exists, update it
-      //   await supabase.from('Transactions').update(data).eq('transaction_id', uuid);
-      // } else {
-      //   // If record does not exist, insert new record
-      // }
     } catch (e) {
-      // Handle any errors that occur
       print('Error inserting/updating record: $e');
     }
   }
@@ -194,6 +186,12 @@ class _CartscreenState extends State<Cartscreen> {
 
   void _scanQRCode() {
     controller?.resumeCamera();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('Return Transaction ID: ${componentcontroller.transactionid.value}');
   }
 
   @override

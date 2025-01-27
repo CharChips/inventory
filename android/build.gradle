@@ -19,7 +19,13 @@ afterEvaluate { project ->
             buildToolsVersion "34.0.0"
         }
     }
-  }
+    if (project.hasProperty("kotlin")) {
+            project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+            }
+  }}
   project.buildDir = "${rootProject.buildDir}/${project.name}"
   project.evaluationDependsOn(':app')
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory/firebase_options.dart';
 import 'package:inventory/src/features/authentication/screens/login/login_screen.dart';
+import 'package:inventory/src/features/main_app/search_screen/first_screen.dart';
 // import 'package:inventory/src/features/authentication/screens/onboarding_screen/onboarding_screen.dart';
 // import 'package:inventory/src/features/authentication/screens/splash_screen/splash_screen.dart';
 // import 'package:inventory/src/features/authentication/screens/welcome/welcome.dart';
@@ -10,6 +11,7 @@ import 'package:inventory/src/utils/theme/theme.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +39,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: CAppTheme.lightTheme,
-        darkTheme: CAppTheme.darkTheme,
         themeMode: ThemeMode.system,
         home: const LoginScreen());
   }
