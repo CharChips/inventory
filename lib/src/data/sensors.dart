@@ -20,5 +20,14 @@ class Sensors {
     Component(name: 'Load Cell (5 kg)', boxNo: '', stock: 1),
     Component(name: 'Range Current Sensor', boxNo: '', stock: 2),
     Component(name: 'Lidar', boxNo: '', stock: 2),
+    Component(name: 'Communication Module', boxNo: 'SN-01', stock: 0),
+    Component(name: 'IR SENSOR', boxNo: 'SN-01', stock: 0),
+    Component(name: '1D LIDAR', boxNo: 'SN-01', stock: 0),
+    Component(name: 'MG90', boxNo: 'SN-01', stock: 0),
+    Component(name: 'AHT', boxNo: 'SN-01', stock: 0),
+    Component(name: 'RAIN DROP SENSORS', boxNo: 'SN-01', stock: 0),
+    Component(name: 'NTC COMMON', boxNo: 'SN-01', stock: 0),
+    Component(name: 'RGB', boxNo: 'SN-01', stock: 0),
+    Component(name: 'DHT11', boxNo: 'SN-01', stock: 0),
   ];
 }

@@ -1,7 +1,5 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:inventory/src/data/cartcomponent.dart';
 import 'package:inventory/src/data/model.dart';
@@ -220,6 +218,33 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'SN-LIDAR').hasMatch(elem)) {
         CompName.value = 'RP-LIDAR AM-18';
         Boxname.value = 'SN-01';
+      } else if(RegExp(r'SN-TTL-FTDI').hasMatch(elem)){
+        CompName.value = 'Communication Module';
+        Boxname.value = 'SN-01';
+      } else if(RegExp(r'SN-PHOTO-IR').hasMatch(elem)){
+        CompName.value = 'IR SENSOR';
+        Boxname.value = 'SN-01';
+      } else if(RegExp(r'SN-V15310x-LIDAR').hasMatch(elem)){
+        CompName.value = '1D LIDAR';
+        Boxname.value = 'SN-01';
+      } else if(RegExp(r'SN-MG90s-180').hasMatch(elem)){
+        CompName.value = 'MG90';
+        Boxname.value = 'AC-02';
+      } else if(RegExp('SN-AHT-10').hasMatch(elem)){
+        CompName.value = 'AHT';
+        Boxname.value = 'SN-01';
+      } else if(RegExp('SN-RAIN').hasMatch(elem)){
+        CompName.value = 'RAIN DROP SENSORS';
+        Boxname.value = 'SN-01';
+      } else if(RegExp('SN-NTC-COMMON').hasMatch(elem)){
+        CompName.value = 'NTC COMMON';
+        Boxname.value = 'SN-01';
+      } else if(RegExp('SN-RGB-COLOR').hasMatch(elem)){
+        CompName.value = 'RGB';
+        Boxname.value = 'SN-01';
+      } else if(RegExp('SN-DHT11').hasMatch(elem)){
+        CompName.value = 'DHT11';
+        Boxname.value = 'SN-01';
       }
     } else if (RegExp(r'^CM').hasMatch(elem)) {
       ClassName.value = 'Communication Modules';
@@ -285,6 +310,9 @@ class ComponentController extends GetxController {
         Boxname.value = 'CM-01';
       } else if (RegExp(r'CM-RFID').hasMatch(elem)) {
         CompName.value = 'RFID module';
+        Boxname.value = 'CM-01';
+      } else if (RegExp(r'CM-BLUETOOTH').hasMatch(elem)) {
+        CompName.value = 'BLUETOOTH TRANSMITTER';
         Boxname.value = 'CM-01';
       }
     } else if (RegExp(r'^AC').hasMatch(elem)) {
