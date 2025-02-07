@@ -11,13 +11,13 @@ class ActuatorsandMotors {
         boxNo: '',
         stock: 0), // Assuming stock is 0 since not provided
     Component(
-        name: 'Gear Motor Driver',
+        name: 'Gear Motor Driver 5V',
         boxNo: '',
         stock: 0), // Assuming stock is 0 since not provided
     Component(name: 'Solenoid Lock', boxNo: '', stock: 2),
     Component(name: 'Relay module', boxNo: '', stock: 9),
     Component(name: 'Relay module', boxNo: '', stock: 5),
     Component(name: 'Solid state Relay', boxNo: '', stock: 1),
-    Component(name: 'N20 motor', boxNo: '', stock: 1),
+    Component(name: 'N20 Encoded DC Motor', boxNo: '', stock: 1),
   ];
 }
