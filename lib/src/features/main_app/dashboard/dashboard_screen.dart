@@ -15,11 +15,12 @@ class Dashboard extends StatelessWidget {
             ClassContainer(label: "Microcontroller", stock: 27),
             ClassContainer(label: "Communication Modules", stock: 20),
             ClassContainer(label: "Sensors", stock: 18),
-            ClassContainer(label: "Displays & Indicators", stock: 13),
+            ClassContainer(label: "Displays and Indicators", stock: 13),
             ClassContainer(label: "Audio Modules", stock: 5),
             ClassContainer(label: "Transistors and Diodes", stock: 8),
             ClassContainer(label: "Actuators and Motors", stock: 8),
             ClassContainer(label: "Connectors and Switches", stock: 8),
+            ClassContainer(label: "Power Components", stock: 0)
           ],
         ),
       ),

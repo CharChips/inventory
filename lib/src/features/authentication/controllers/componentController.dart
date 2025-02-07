@@ -48,7 +48,7 @@ class ComponentController extends GetxController {
         CompName.value = 'Raspberry Pie 4b';
         Boxname.value = 'MC-03';
       } else if (RegExp(r'RASPI-0').hasMatch(elem)) {
-        CompName.value = 'Raspberry Pie zero';
+        CompName.value = 'Raspberry pie zero';
         Boxname.value = 'MC-03';
       } else if (RegExp(r'RASP-PICO').hasMatch(elem)) {
         CompName.value = 'Raspberry pie pico';
@@ -59,16 +59,16 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'ESP32-DEV').hasMatch(elem)) {
         CompName.value = 'ESP32 dev kit';
         Boxname.value = 'MC-05/MC-02';
-      } else if (RegExp(r'ESP-32').hasMatch(elem)) {
-        CompName.value = 'ESP-32';
-        Boxname.value = 'MC-02';
+      } else if (RegExp(r'ESP32').hasMatch(elem)) {
+        CompName.value = 'ESP 32';
+        Boxname.value = 'MC-04';
       } else if (RegExp(r'ESP-NMCU').hasMatch(elem)) {
         CompName.value = 'ESP8266 (NODEMCU)';
         Boxname.value = 'MC-02';
       } else if (RegExp(r'ESP-CAM').hasMatch(elem)) {
         CompName.value = 'ESP CAMERA';
         Boxname.value = 'MC-02';
-      } else if (RegExp(r'STM-32').hasMatch(elem)) {
+      } else if (RegExp(r'STM').hasMatch(elem)) {
         CompName.value = 'STM-32F401';
         Boxname.value = 'MC-04';
       } else if (RegExp(r'ARD-UNO').hasMatch(elem)) {
@@ -79,61 +79,70 @@ class ComponentController extends GetxController {
         Boxname.value = 'MC-05';
       } else if (RegExp(r'ARD-NANO').hasMatch(elem)) {
         CompName.value = 'Arduino Nano';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
-        CompName.value = 'ATMEGA32';
         Boxname.value = 'MC-01';
-      } else if (RegExp(r'AT-MEGA8').hasMatch(elem)) {
-        CompName.value = 'ATMEGA8-16PU';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F14K50').hasMatch(elem)) {
-        CompName.value = 'PIC18F14K50';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F4520').hasMatch(elem)) {
-        CompName.value = 'PIC18F(4520)';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F4550').hasMatch(elem)) {
-        CompName.value = 'PIC18F(4550)';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC16F877A').hasMatch(elem)) {
-        CompName.value = 'PIC16F877A AND DS13020538A5';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'89E516-RD').hasMatch(elem)) {
-        CompName.value = '89E516RD';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'ATMEG-16').hasMatch(elem)) {
-        CompName.value = 'ATMEGA16L8PU';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'ATMEL-73424').hasMatch(elem)) {
-        CompName.value = 'ATMEL73424C256';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'ATMEL-U7482EB').hasMatch(elem)) {
-        CompName.value = 'ATMELU7482EB';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F 252').hasMatch(elem)) {
-        CompName.value = 'PIC18F252';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F 13K50').hasMatch(elem)) {
-        CompName.value = 'PIC18F13K50';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'PIC18F 887A').hasMatch(elem)) {
-        CompName.value = 'PIC16F887A';
-        Boxname.value = 'MC-03';
-      } else if (RegExp(r'ARD-ENC').hasMatch(elem)) {
-        CompName.value = 'Arduino ENC28J60 (Ethernet)';
-        Boxname.value = 'CM-03';
+        // } else if (RegExp(r'AT-MEGA32').hasMatch(elem)) {
+        //   CompName.value = 'ATMEGA32';
+        //   Boxname.value = 'MC-01';
+        // } else if (RegExp(r'AT-MEGA8').hasMatch(elem)) {
+        //   CompName.value = 'ATMEGA8-16PU';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F14K50').hasMatch(elem)) {
+        //   CompName.value = 'PIC18F14K50';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F4520').hasMatch(elem)) {
+        //   CompName.value = 'PIC18F(4520)';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F4550').hasMatch(elem)) {
+        //   CompName.value = 'PIC18F(4550)';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC16F877A').hasMatch(elem)) {
+        //   CompName.value = 'PIC16F877A AND DS13020538A5';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'89E516-RD').hasMatch(elem)) {
+        //   CompName.value = '89E516RD';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'ATMEG-16').hasMatch(elem)) {
+        //   CompName.value = 'ATMEGA16L8PU';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'ATMEL-73424').hasMatch(elem)) {
+        //   CompName.value = 'ATMEL73424C256';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'ATMEL-U7482EB').hasMatch(elem)) {
+        //   CompName.value = 'ATMELU7482EB';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F 252').hasMatch(elem)) {
+        //   CompName.value = 'PIC18F252';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F 13K50').hasMatch(elem)) {
+        //   CompName.value = 'PIC18F13K50';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'PIC18F 887A').hasMatch(elem)) {
+        //   CompName.value = 'PIC16F887A';
+        //   Boxname.value = 'MC-03';
+        // } else if (RegExp(r'ARD-ENC').hasMatch(elem)) {
+        //   CompName.value = 'Arduino ENC28J60 (Ethernet)';
+        //   Boxname.value = 'CM-03';
       } else if (RegExp(r'ARD-PMINI').hasMatch(elem)) {
         CompName.value = 'arduino pro mini';
-        Boxname.value = 'CM-02';
-      } else if (RegExp(r'ARD-MEGA').hasMatch(elem)) {
-        CompName.value = 'Arduino Mega';
         Boxname.value = 'MC-01';
-      } else if (RegExp(r'STMST-LINKV2').hasMatch(elem)) {
-        CompName.value = 'STMST-LINKV2';
+      } else if (RegExp(r'ARD-MEGA').hasMatch(elem)) {
+        CompName.value = 'Arduino mega';
+        Boxname.value = 'MC-01';
+      } else if (RegExp(r'STM-LINK').hasMatch(elem)) {
+        CompName.value = 'ST-LINK V2';
         Boxname.value = 'MC-04';
-      } else if (RegExp(r'FPGA-PBO').hasMatch(elem)) {
-        CompName.value = 'Boolean Board';
-        Boxname.value = 'MC-06';
+      } else if (RegExp(r'4K-FPGA').hasMatch(elem)) {
+        CompName.value = '4K FPGA';
+        Boxname.value = 'MC-04';
+      } else if (RegExp(r'PIC-MC').hasMatch(elem)) {
+        CompName.value = 'PIC Microcontroller';
+        Boxname.value = 'MC-03';
+      } else if (RegExp(r'8051-kit').hasMatch(elem)) {
+        CompName.value = '8051 Microcontroller';
+        Boxname.value = 'MC-05';
+      } else if (RegExp(r'GPIO-EXT').hasMatch(elem)) {
+        CompName.value = 'GPIO Extention';
+        Boxname.value = 'MC-03';
       }
     } else if (RegExp(r'^SN').hasMatch(elem)) {
       ClassName.value = 'Sensors';
@@ -186,13 +195,13 @@ class ComponentController extends GetxController {
         CompName.value = 'Colour sensor';
         Boxname.value = 'SN-01';
       } else if (RegExp(r'SN-APD-9930').hasMatch(elem)) {
-        CompName.value = 'APD-9930 proximity sensor';
+        CompName.value = 'APD-9930 Proximity Sensor';
         Boxname.value = 'SN-01';
       } else if (RegExp(r'SN-IR-ARR').hasMatch(elem)) {
         CompName.value = 'IR sensor array';
         Boxname.value = 'SN-01';
       } else if (RegExp(r'SN-FLEX').hasMatch(elem)) {
-        CompName.value = 'Flex sensor';
+        CompName.value = 'Flex Sensor';
         Boxname.value = 'SN-01';
       } else if (RegExp(r'SN-FORCE').hasMatch(elem)) {
         CompName.value = 'Force sensitive sensor';
@@ -216,7 +225,25 @@ class ComponentController extends GetxController {
         CompName.value = 'Thermopile Array (MLX90640)';
         Boxname.value = 'SN-01';
       } else if (RegExp(r'SN-LIDAR').hasMatch(elem)) {
-        CompName.value = 'RP-LIDAR AM-18';
+        CompName.value = 'RP-Lidar Sensor';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-TTL-FTDI').hasMatch(elem)) {
+        CompName.value = 'FTDI';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-VL53L0x-LIDAR').hasMatch(elem)) {
+        CompName.value = '1D LIDAR';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-AHT-10').hasMatch(elem)) {
+        CompName.value = 'Temperature Sensor';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-RGB-COLOR').hasMatch(elem)) {
+        CompName.value = 'RGB SENSOR';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-RAIN').hasMatch(elem)) {
+        CompName.value = 'RAIN DROP SENSOR';
+        Boxname.value = 'SN-01';
+      } else if (RegExp(r'SN-NTC').hasMatch(elem)) {
+        CompName.value = 'NTC COMMON';
         Boxname.value = 'SN-01';
       } else if(RegExp(r'SN-TTL-FTDI').hasMatch(elem)){
         CompName.value = 'Communication Module';
@@ -260,7 +287,7 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'CM-TTL-RS485').hasMatch(elem)) {
         CompName.value = 'TTL TO RS485';
         Boxname.value = 'CM-01';
-      } else if (RegExp(r'CM-SIM-GSM-XXX').hasMatch(elem)) {
+      } else if (RegExp(r'CM-SIM-GSM').hasMatch(elem)) {
         CompName.value = 'SIM 800A/900A GSM MODULE';
         Boxname.value = 'CM-01';
       } else if (RegExp(r'CM-GSM-6M').hasMatch(elem)) {
@@ -313,6 +340,8 @@ class ComponentController extends GetxController {
         Boxname.value = 'CM-01';
       } else if (RegExp(r'CM-BLUETOOTH').hasMatch(elem)) {
         CompName.value = 'BLUETOOTH TRANSMITTER';
+      } else if (RegExp(r'CM-GPS-MOD').hasMatch(elem)) {
+        CompName.value = 'GPS Module';
         Boxname.value = 'CM-01';
       }
     } else if (RegExp(r'^AC').hasMatch(elem)) {
@@ -345,12 +374,9 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'AC-MTR-612V').hasMatch(elem)) {
         CompName.value = '5-12V Motor';
         Boxname.value = 'AC-01';
-      } else if (RegExp(r'AC-MTR-N20').hasMatch(elem)) {
+      } else if (RegExp(r'AC-N20-MTR').hasMatch(elem)) {
         CompName.value = 'N20 Encoded DC Motor';
         Boxname.value = 'AC-02';
-      } else if (RegExp(r'').hasMatch(elem)) {
-        CompName.value = 'X5C-1 (unbalanced motor)';
-        Boxname.value = 'AC-01';
       } else if (RegExp(r'').hasMatch(elem)) {
         CompName.value = 'MG-90';
         Boxname.value = 'AC-05';
@@ -402,15 +428,12 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'DI-LCD-SH').hasMatch(elem)) {
         CompName.value = 'LCD with sheild';
         Boxname.value = 'DI-02';
-      } else if (RegExp(r'DI-LCD-16').hasMatch(elem)) {
+      } else if (RegExp(r'DI-LCD16').hasMatch(elem)) {
         CompName.value = 'LCD 16X2';
         Boxname.value = 'DI-02';
       } else if (RegExp(r'DI-LCD-20').hasMatch(elem)) {
         CompName.value = 'LCD 20 x 4';
         Boxname.value = 'DI-02';
-      } else if (RegExp(r'').hasMatch(elem)) {
-        CompName.value = 'BYD4512B812246(i.45 in OLED)';
-        Boxname.value = 'DI-01';
       } else if (RegExp(r'').hasMatch(elem)) {
         CompName.value = '4 digit 7 segment';
         Boxname.value = 'DI-01';
@@ -444,33 +467,6 @@ class ComponentController extends GetxController {
       } else if (RegExp(r'AM-MP3V5050G').hasMatch(elem)) {
         CompName.value = 'MP3V5050g';
         Boxname.value = 'AM-01';
-      }
-    } else if (RegExp(r'^TD').hasMatch(elem)) {
-      ClassName.value = 'Transistors and Diodes';
-      if (RegExp(r'TD-BC574').hasMatch(elem)) {
-        CompName.value = 'BC 574 Transistor';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-N7000').hasMatch(elem)) {
-        CompName.value = 'N7000 MOSFET';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-SL100B').hasMatch(elem)) {
-        CompName.value = 'SL100B transistor';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-BT136-600E').hasMatch(elem)) {
-        CompName.value = 'BT136-600E TRIAC';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-TIP122').hasMatch(elem)) {
-        CompName.value = 'tip122 transistor';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-DIOD').hasMatch(elem)) {
-        CompName.value = 'Diodes';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-d1442').hasMatch(elem)) {
-        CompName.value = '51V9F transisor';
-        Boxname.value = 'TD-01';
-      } else if (RegExp(r'TD-1443').hasMatch(elem)) {
-        CompName.value = 'mosfets';
-        Boxname.value = 'TD-01';
       }
     } else if (RegExp(r'^IC').hasMatch(elem)) {
       ClassName.value = 'ICs and Semiconductors';
@@ -713,6 +709,9 @@ class ComponentController extends GetxController {
         Boxname.value = 'PW-01';
       } else if (RegExp(r'PW-BAT12').hasMatch(elem)) {
         CompName.value = 'battery 9v';
+        Boxname.value = 'PW-01';
+      } else if (RegExp(r'PW-CHR').hasMatch(elem)) {
+        CompName.value = 'Charger';
         Boxname.value = 'PW-01';
       }
     }

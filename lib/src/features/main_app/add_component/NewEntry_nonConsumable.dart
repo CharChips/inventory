@@ -210,7 +210,8 @@ class _NewentryState extends State<Newentry> {
 
             // Proceed with inserting data if stock is valid
             try {
-              print("Inserting data into the database"); // Debugging line
+              print("Inserting data into the database");
+              print(componentcontroller.ClassName.value); // Debugging line
               await supabase.from(componentcontroller.ClassName.value).insert({
                 'skuid': barcodecontroller.text,
                 'name': componentcontroller.CompName.value,

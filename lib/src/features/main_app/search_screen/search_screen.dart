@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:inventory/src/data/Actuators&Motors.dart';
 import 'package:inventory/src/data/Communication%20Modules.dart';
 import 'package:inventory/src/data/DisplaysandIndicators.dart';
-import 'package:inventory/src/data/TransistorsandDiodes.dart';
 import 'package:inventory/src/data/audiomodules.dart';
 import 'package:inventory/src/data/microControllerList.dart';
 import 'package:inventory/src/data/model.dart';
@@ -63,7 +62,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ...CommunicationModules().components,
       ...Sensors().components,
       ...Displaysandindicators().components,
-      ...Transistorsanddiodes().components,
       ...ActuatorsandMotors().components,
       ...Audiomodules().components,
     ];
