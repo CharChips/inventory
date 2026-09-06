@@ -8,13 +8,14 @@ class Chooseoption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
       width: screenWidth,
       height: double.infinity,
-      decoration: const BoxDecoration(
-        color: Color(0xffC5E3FF),
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: isDarkMode ? Theme.of(context).colorScheme.surface : const Color(0xffC5E3FF),
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
@@ -34,7 +35,7 @@ class Chooseoption extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(15), // Adjust padding as needed
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDarkMode ? Theme.of(context).cardColor : Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: const [
                       BoxShadow(
@@ -55,12 +56,14 @@ class Chooseoption extends StatelessWidget {
                           height: 35,
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                          'Add Non-Consumable component',
-                          style: GoogleFonts.lato(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
+                        Flexible(
+                          child: Text(
+                            'Add Non-Consumable component',
+                            style: GoogleFonts.lato(
+                              color: isDarkMode ? Colors.white : Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],
@@ -80,7 +83,7 @@ class Chooseoption extends StatelessWidget {
                       .infinity, // This makes the container stretch the full width
                   padding: const EdgeInsets.all(15), // Adjust padding as needed
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: isDarkMode ? Theme.of(context).cardColor : Colors.white,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: const [
                       BoxShadow(
@@ -99,12 +102,14 @@ class Chooseoption extends StatelessWidget {
                         height: 35,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'Add Consumable component',
-                        style: GoogleFonts.lato(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          'Add Consumable component',
+                          style: GoogleFonts.lato(
+                            color: isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],

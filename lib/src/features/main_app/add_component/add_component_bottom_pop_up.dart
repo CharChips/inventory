@@ -11,7 +11,7 @@ Future<dynamic> AddCompBottomSheet(BuildContext context) {
     constraints: const BoxConstraints.expand(),
     isScrollControlled: true,
     elevation: 10,
-    backgroundColor: const Color(0xffC5E3FF),
+    backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).colorScheme.surface : const Color(0xffC5E3FF),
     builder: (BuildContext context) => const Newentry(),
   );
 }
@@ -25,7 +25,7 @@ Future<dynamic> AddConsumableSheet(BuildContext context) {
     constraints: const BoxConstraints.expand(),
     isScrollControlled: true,
     elevation: 10,
-    backgroundColor: const Color(0xffC5E3FF),
+    backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).colorScheme.surface : const Color(0xffC5E3FF),
     builder: (BuildContext context) => const NewConsumableentry(),
   );
 }

@@ -128,8 +128,10 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 8,
+                runSpacing: 8,
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -149,7 +151,6 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
@@ -1270,27 +1271,33 @@ class _ComponentInClassScreenState extends State<ComponentInClassScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: BoxDecoration(
-                            color: accentColor.withValues(alpha: 0.12),
-                            borderRadius: BorderRadius.circular(8),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: accentColor.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(Icons.qr_code_2_rounded, size: 18, color: accentColor),
                           ),
-                          child: Icon(Icons.qr_code_2_rounded, size: 18, color: accentColor),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          item.skuid,
-                          style: GoogleFonts.sourceCodePro(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: primaryText,
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              item.skuid,
+                              style: GoogleFonts.sourceCodePro(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: primaryText,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    const SizedBox(width: 8),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 3),
                       decoration: BoxDecoration(

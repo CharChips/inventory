@@ -726,11 +726,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                       const SizedBox(height: 4),
                                       Row(
                                         children: [
-                                          Text(
-                                            'SKU: ${component.skuid}',
-                                            style: GoogleFonts.robotoMono(
-                                              fontSize: 11,
-                                              color: secondaryText,
+                                          Expanded(
+                                            child: Text(
+                                              'SKU: ${component.skuid}',
+                                              style: GoogleFonts.robotoMono(
+                                                fontSize: 11,
+                                                color: secondaryText,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                           const SizedBox(width: 8),

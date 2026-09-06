@@ -49,7 +49,8 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
 
       _isProcessingScan = false; // reset guard for this new scan attempt
 
-      // Show scanner in a dialog
+      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -61,7 +62,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
             height: 400,
             width: 350,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDarkMode ? Theme.of(context).cardColor : Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
@@ -192,7 +193,7 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                    color: isDarkMode ? Theme.of(context).colorScheme.surfaceVariant : Colors.grey[100],
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
@@ -206,8 +207,8 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
                       Text(
                         'Position the barcode within the frame',
                         style: GoogleFonts.lato(
-                          textStyle: const TextStyle(
-                            color: Color(0xff19335A),
+                          textStyle: TextStyle(
+                            color: isDarkMode ? Colors.white70 : const Color(0xff19335A),
                             fontSize: 14,
                           ),
                         ),
@@ -275,86 +276,38 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 40),
-        TextButton(
-          onPressed: _startBarcodeScan,
-          child: Container(
-            width: 300,
-            decoration: const BoxDecoration(
-              color: Color(0xff19335A),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            alignment: Alignment.center,
-            child: Text(
-              'Scan the Barcode',
-              style: GoogleFonts.lato(
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-            ),
-            child: TextField(
-              controller: componentcontroller.namecontroller,
-              maxLines: 6,
-              minLines: 1,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                label: Text(
-                  "Name",
-                  style: GoogleFonts.lato(
-                    textStyle:
-                        const TextStyle(color: Color.fromARGB(255, 141, 141, 141)),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Row(
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(25.0),
+            const SizedBox(height: 40),
+            TextButton(
+              onPressed: _startBarcodeScan,
               child: Container(
-                width: 120,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
-                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                width: 300,
+                decoration: const BoxDecoration(
+                  color: Color(0xff19335A),
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: TextFormField(
-                  controller: componentcontroller.boxnocontroller,
-                  maxLines: 6,
-                  minLines: 1,
-                  style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    label: Text(
-                      "Box No.",
-                      style: GoogleFonts.lato(
-                        textStyle:
-                            const TextStyle(color: Color.fromARGB(255, 6, 6, 6)),
-                      ),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                alignment: Alignment.center,
+                child: Text(
+                  'Scan the Barcode',
+                  style: GoogleFonts.lato(
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 18,
                     ),
                   ),
                 ),
@@ -363,23 +316,78 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
             Padding(
               padding: const EdgeInsets.all(25.0),
               child: Container(
-                width: 120,
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
+                  border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
-                child: TextFormField(
-                  controller: stockcontroller,
+                child: TextField(
+                  controller: componentcontroller.namecontroller,
                   maxLines: 6,
                   minLines: 1,
-                  style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     label: Text(
-                      "Stock",
+                      "Name",
                       style: GoogleFonts.lato(
-                        textStyle:
-                            const TextStyle(color: Color.fromARGB(255, 6, 6, 6)),
+                        textStyle: TextStyle(
+                            color: isDarkMode ? Colors.white70 : const Color.fromARGB(255, 6, 6, 6)),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25.0, top: 25.0, bottom: 25.0, right: 12.5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: TextFormField(
+                    controller: componentcontroller.boxnocontroller,
+                    maxLines: 6,
+                    minLines: 1,
+                    style: TextStyle(color: isDarkMode ? Colors.white : const Color.fromARGB(255, 0, 0, 0)),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      label: Text(
+                        "Box No.",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              color: isDarkMode ? Colors.white70 : const Color.fromARGB(255, 6, 6, 6)),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 25.0, top: 25.0, bottom: 25.0, left: 12.5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: TextFormField(
+                    controller: stockcontroller,
+                    maxLines: 6,
+                    minLines: 1,
+                    style: TextStyle(color: isDarkMode ? Colors.white : const Color.fromARGB(255, 0, 0, 0)),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      label: Text(
+                        "Stock",
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              color: isDarkMode ? Colors.white70 : const Color.fromARGB(255, 6, 6, 6)),
+                        ),
                       ),
                     ),
                   ),
@@ -447,7 +455,9 @@ class _NewConsumableentryState extends State<NewConsumableentry> {
             ),
           ),
         ),
-      ],
+          ],
+        ),
+      ),
     );
   }
 }

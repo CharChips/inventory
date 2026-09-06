@@ -75,7 +75,8 @@ class _NewentryState extends State<Newentry> {
 
       _isProcessingScan = false; // reset guard for this new scan attempt
 
-      // Show scanner in a dialog
+      final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -87,7 +88,7 @@ class _NewentryState extends State<Newentry> {
             height: 400,
             width: 350,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isDarkMode ? Theme.of(context).cardColor : Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
@@ -449,10 +450,14 @@ class _NewentryState extends State<Newentry> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 191, 230, 249),
+      backgroundColor: isDarkMode ? Theme.of(context).colorScheme.surface : const Color.fromARGB(255, 191, 230, 249),
       body: SingleChildScrollView(
-        child: Form(
+        child: Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Form(
           key: _formKey,
           child: Column(children: [
             const SizedBox(height: 40),
@@ -482,14 +487,14 @@ class _NewentryState extends State<Newentry> {
               padding: const EdgeInsets.all(25.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
+                  border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
                   controller: barcodecontroller,
                   maxLines: 6,
                   minLines: 1,
-                  style: const TextStyle(color: Colors.black),
+                  style: TextStyle(color: isDarkMode ? Colors.white : Colors.black),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     label: Text(
@@ -528,14 +533,14 @@ class _NewentryState extends State<Newentry> {
               padding: const EdgeInsets.all(25.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
+                  border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextField(
                   controller: componentcontroller.namecontroller,
                   maxLines: 6,
                   minLines: 1,
-                  style: const TextStyle(color: Color.fromARGB(255, 5, 5, 5)),
+                  style: TextStyle(color: isDarkMode ? Colors.white : const Color.fromARGB(255, 5, 5, 5)),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     label: Text(
@@ -553,14 +558,14 @@ class _NewentryState extends State<Newentry> {
               padding: const EdgeInsets.all(25.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
+                  border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
                   controller: componentcontroller.boxnocontroller,
                   maxLines: 6,
                   minLines: 1,
-                  style: const TextStyle(color: Color.fromARGB(255, 4, 13, 56)),
+                  style: TextStyle(color: isDarkMode ? Colors.white : const Color.fromARGB(255, 4, 13, 56)),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     label: Text(
@@ -578,7 +583,7 @@ class _NewentryState extends State<Newentry> {
               padding: const EdgeInsets.all(25.0),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromARGB(255, 4, 13, 56)),
+                  border: Border.all(color: isDarkMode ? Colors.white54 : const Color.fromARGB(255, 4, 13, 56)),
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                 ),
                 child: TextFormField(
@@ -589,7 +594,7 @@ class _NewentryState extends State<Newentry> {
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                   ],
-                  style: const TextStyle(color: Color.fromARGB(255, 4, 13, 56)),
+                  style: TextStyle(color: isDarkMode ? Colors.white : const Color.fromARGB(255, 4, 13, 56)),
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     label: Text(
@@ -663,6 +668,7 @@ class _NewentryState extends State<Newentry> {
               ),
             ),
           ]),
+        ),
         ),
       ),
     );
